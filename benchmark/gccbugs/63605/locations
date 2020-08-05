@@ -1,0 +1,5 @@
+test trunk:216429
+fail opti level:-O3
+fixed trunk:217238
+buggy locations:
+file:/trunk/gcc/fold-const.c;method:fold_binary_loc (location_t loc, enum tree_code code, tree type, tree op0, tree op1)

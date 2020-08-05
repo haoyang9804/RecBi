@@ -1,0 +1,5 @@
+test trunk:211110
+fail opti level:-O2,-O3
+fixed trunk:211163
+buggy locations:
+file:/trunk/gcc/tree-ssa-ifcombine.c;method:bb_no_side_effects_p (basic_block bb)

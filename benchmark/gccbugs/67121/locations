@@ -1,0 +1,5 @@
+test trunk:226592
+fail opti level:-O3
+fixed trunk:226630
+buggy locations:
+file:/trunk/gcc/tree-if-conv.c;method:combine_blocks (struct loop *loop, bool any_mask_load_store)

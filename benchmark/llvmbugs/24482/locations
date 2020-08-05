@@ -1,0 +1,7 @@
+test trunk:245195
+fail opti level:-Os
+fixed revision:245402
+buggy location
+file:llvm/trunk/lib/Transforms/Scalar/DeadStoreElimination.cpp;method: DSE::isSafeCandidateForDeletion(BasicBlock *SrcBlock, BasicBlock *SinkBlock, StoreInst *SI)
+file:llvm/trunk/lib/Transforms/Scalar/DeadStoreElimination.cpp;method:DSE::DeleteDeadInstruction(Instruction *I, MemoryDependenceAnalysis &MD,const TargetLibraryInfo &TLI,SmallSetVector<Value *, 16> *ValueSet)
+file:llvm/trunk/lib/Transforms/Scalar/DeadStoreElimination.cpp;method:DSE::runOnBasicBlock(BasicBlock &BB)

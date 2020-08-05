@@ -1,0 +1,45 @@
+The current gcc trunk miscompiles the following code on x86_64-linux-gnu at -O2 and -O3 in both 32-bit and 64-bit modes. 
+
+This is a regression from 5.2.x.
+
+
+$ gcc-trunk -v
+Using built-in specs.
+COLLECT_GCC=gcc-trunk
+COLLECT_LTO_WRAPPER=/usr/local/gcc-trunk/libexec/gcc/x86_64-pc-linux-gnu/6.0.0/lto-wrapper
+Target: x86_64-pc-linux-gnu
+Configured with: ../gcc-trunk/configure --prefix=/usr/local/gcc-trunk --enable-languages=c,c++ --disable-werror --enable-multilib
+Thread model: posix
+gcc version 6.0.0 20150930 (experimental) [trunk revision 228291] (GCC) 
+$ 
+$ gcc-trunk -Os small.c; ./a.out
+15
+$ gcc-5.2 -O2 small.c; ./a.out
+15
+$ 
+$ gcc-trunk -O2 small.c; ./a.out
+-32
+$ 
+$ 
+
+
+-------------------------------------
+
+
+int printf (const char *, ...);
+
+int a, b = 10;
+char c;
+
+int
+main ()
+{
+  char d;
+  int e = 5;
+  for (a = 0; a; a--)
+    e = 0;
+  c = (b & 15) ^ e;
+  d = c > e ? c : c << e;
+  printf ("%d\n", d);
+  return 0;
+}

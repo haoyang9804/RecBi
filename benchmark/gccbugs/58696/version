@@ -1,0 +1,60 @@
+The current gcc trunk produces wrong code for the following testcase on x86_64-linux when compiled at -O3 in both 32-bit and 64-bit modes. 
+
+This is a regression from 4.8.x.
+
+
+$ gcc-trunk -v
+Using built-in specs.
+COLLECT_GCC=gcc-trunk
+COLLECT_LTO_WRAPPER=/usr/local/gcc-trunk/libexec/gcc/x86_64-unknown-linux-gnu/4.9.0/lto-wrapper
+Target: x86_64-unknown-linux-gnu
+Configured with: ../gcc-trunk/configure --enable-languages=c,c++,objc,obj-c++,fortran,lto --disable-werror --enable-checking=release --with-gmp=/usr/local/gcc-trunk --with-mpfr=/usr/local/gcc-trunk --with-mpc=/usr/local/gcc-trunk --with-cloog=/usr/local/gcc-trunk --prefix=/usr/local/gcc-trunk
+Thread model: posix
+gcc version 4.9.0 20131011 (experimental) [trunk revision 203458] (GCC) 
+$ 
+$ gcc-trunk -O2 small.c; a.out
+0
+$ gcc-4.8 -O3 small.c; a.out
+0
+$ gcc-trunk -O3 small.c; a.out
+1
+$ 
+
+
+----------------------------------
+
+
+int printf (const char *, ...);
+
+int a[20], b, c; 
+
+int
+fn1 ()
+{
+  int d, e, f, g = 0; 
+
+  a[12] = 1;
+  for (e = 0; e < 3; e++)
+    for (d = 0; d < 2; d++)
+      {
+    for (f = 0; f < 2; f++)
+      {
+        g ^= a[12] > 1;
+        if (g)
+          return 0;
+        if (b)
+          break;
+      }
+    for (c = 0; c < 1; c++)
+      a[d] = a[e * 3 + 9]; 
+      }
+  return 0;
+}
+
+int
+main ()
+{
+  fn1 ();
+  printf ("%d\n", a[0]);
+  return 0;
+}

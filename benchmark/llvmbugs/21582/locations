@@ -1,0 +1,10 @@
+test trunk:220897
+fail opti level:-O1
+fixed trunk:222338
+buggy locations:
+file:llvm/trunk/lib/Analysis/AliasSetTracker.cpp;method:void AliasSet::mergeSetIn(AliasSet &AS, AliasSetTracker &AST)
+file:llvm/trunk/lib/Analysis/AliasSetTracker.cpp;method:void AliasSet::addPointer(AliasSetTracker &AST, PointerRec &Entry,uint64_t Size, const AAMDNodes &AAInfo,bool KnownMustAlias)
+file:llvm/trunk/lib/Analysis/AliasSetTracker.cpp;method:AliasSet *AliasSetTracker::findAliasSetForPointer(const Value *Ptr,uint64_t Size,const AAMDNodes &AAInfo)
+file:llvm/trunk/lib/Analysis/AliasSetTracker.cpp;method:bool AliasSetTracker::containsUnknown(Instruction *Inst) const
+file:llvm/trunk/lib/Analysis/AliasSetTracker.cpp;method:void AliasSetTracker::add(const AliasSetTracker &AST)
+file:llvm/trunk/lib/Analysis/AliasSetTracker.cpp;method:void AliasSetTracker::deleteValue(Value *PtrVal)

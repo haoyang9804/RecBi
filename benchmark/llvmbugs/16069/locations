@@ -1,0 +1,4 @@
+test trunk:182209
+fixed revision:183226
+buggy locations
+file:llvm/trunk/lib/Transforms/Utils/SimplifyCFG.cpp;method:SpeculativelyExecuteBB(BranchInst *BI, BasicBlock *ThenBB)

@@ -1,0 +1,5 @@
+test trunk:221192
+fail opti level:-Os
+fixed trunk:221221
+buggy locations:
+file: /trunk/gcc/ipa-icf.c;method:sem_variable::equals (sem_item *item, hash_map <symtab_node *, sem_item *> &)

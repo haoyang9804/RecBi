@@ -1,0 +1,5 @@
+test trunk:234026
+fail opti level:-O3
+fixed trunk:234086
+buggy locations:
+file:trunk/gcc/tree-vect-loop-manip.c;method:static void vect_update_ivs_after_vectorizer (loop_vec_info loop_vinfo, tree niters, edge update_e)

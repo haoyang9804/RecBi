@@ -1,0 +1,28 @@
+$ clang-trunk -v
+clang version 3.4 (trunk 182209)
+Target: x86_64-pc-linux-gnu
+Thread model: posix
+$ clang-trunk -O1 test.c 
+$ ./a.out 
+$ clang-trunk -Os test.c 
+$ ./a.out 
+Floating point exception (core dumped)
+$
+
+------------
+int *a, b, *c, d;
+
+int foo (short p, int q)
+{
+  return q == 0 || (p != 0 && q == 1) ? p : 1 % q;
+}
+
+
+int main ()
+{
+  c = &d;
+  *c = ((int)&a) == 0;
+  b = foo (0, d);
+
+  return 0;
+}

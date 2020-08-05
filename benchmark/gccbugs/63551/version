@@ -1,0 +1,52 @@
+The current gcc trunk (as well as 4.9.x) miscompiles the following code on x86_64-linux at -Os in both 32-bit and 64-bit modes. 
+
+This is a regression from 4.8.x. 
+
+$ gcc-trunk -v
+Using built-in specs.
+COLLECT_GCC=gcc-trunk
+COLLECT_LTO_WRAPPER=/usr/local/gcc-trunk/libexec/gcc/x86_64-unknown-linux-gnu/5.0.0/lto-wrapper
+Target: x86_64-unknown-linux-gnu
+Configured with: ../gcc-trunk/configure --prefix=/usr/local/gcc-trunk --enable-languages=c,c++ --disable-werror --enable-multilib
+Thread model: posix
+gcc version 5.0.0 20141014 (experimental) [trunk revision 216217] (GCC) 
+$ 
+$ gcc-trunk -O1 small.c; a.out
+$ 
+$ gcc-trunk -Os small.c
+$ ./a.out
+Segmentation fault (core dumped)
+$ 
+
+-----------------------------------
+
+union U
+{
+  unsigned int f0;
+  int f1;
+};
+
+int a, d;
+
+void
+fn1 (union U p)
+{
+  if (p.f1 <= 0)
+    if (a)
+      d = 0; 
+}
+
+void
+fn2 ()
+{
+  d = 0; 
+  union U b = { 4294967286 };
+  fn1 (b);
+}
+
+int
+main ()
+{
+  fn2 ();
+  return 0;
+}

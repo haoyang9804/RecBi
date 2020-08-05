@@ -1,0 +1,5 @@
+test trunk:286097
+fail opti level:-O1
+fixed trunk:289412
+buggy locations:
+file: /llvm/trunk/lib/Analysis/ScalarEvolutionExpander.cpp;method:SCEVExpander::InsertBinop(Instruction::BinaryOps Opcode, Value *LHS, Value *RHS)

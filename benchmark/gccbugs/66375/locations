@@ -1,0 +1,5 @@
+test trunk:223995
+fail opti level:-O2;-O3
+fixed trunk:224060
+buggy locations:
+file:/trunk/gcc/tree-scalar-evolution.c;method:follow_ssa_edge_binary (struct loop *loop, gimple at_stmt, tree type, tree rhs0, enum tree_code code, tree rhs1, gphi *halting_phi, tree *evolution_of_loop, int limit)

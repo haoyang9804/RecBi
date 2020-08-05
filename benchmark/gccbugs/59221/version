@@ -1,0 +1,41 @@
+The current gcc trunk miscompiles the following code on x86_64-linux at -O2 and -O3 in both 32-bit and 64-bit modes. 
+
+This is a regression from 4.8.x. 
+
+$ gcc-trunk -v
+Using built-in specs.
+COLLECT_GCC=gcc-trunk
+COLLECT_LTO_WRAPPER=/usr/local/gcc-trunk/libexec/gcc/x86_64-unknown-linux-gnu/4.9.0/lto-wrapper
+Target: x86_64-unknown-linux-gnu
+Configured with: ../gcc-trunk/configure --enable-languages=c,c++,objc,obj-c++,fortran,lto --disable-werror --with-gmp=/usr/local/gcc-trunk --with-mpfr=/usr/local/gcc-trunk --with-mpc=/usr/local/gcc-trunk --with-cloog=/usr/local/gcc-trunk --prefix=/usr/local/gcc-trunk
+Thread model: posix
+gcc version 4.9.0 20131120 (experimental) [trunk revision 205097] (GCC) 
+$ 
+$ gcc-trunk -Os small.c; a.out
+$ gcc-4.8.2 -O2 small.c; a.out
+$ 
+$ gcc-trunk -O2 small.c; a.out
+Aborted (core dumped)
+$ 
+
+
+-----------------------
+
+
+int a = 1, b, d;
+short e;
+
+int
+main ()
+{
+  for (; b; b++)
+    ;
+  short f = a;
+  int g = 15;
+  e = f ? f : 1 << g;
+  int h = e;
+  d = h == 83647 ? 0 : h;
+  if (d != 1)
+    __builtin_abort ();
+  return 0;
+}

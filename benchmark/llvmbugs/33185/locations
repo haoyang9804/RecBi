@@ -1,0 +1,8 @@
+test trunk:304014
+fail opti level:-Os  -mllvm -enable-newgvn
+fixed trunk:304272
+buggy locations:
+file:llvm/trunk/lib/Transforms/Scalar/NewGVN.cpp;method:void NewGVN::touchAndErase(Map &M, const KeyType &Key)
+file:llvm/trunk/lib/Transforms/Scalar/NewGVN.cpp;method:static bool okayForPHIOfOps(const Instruction *I)
+file:llvm/trunk/lib/Transforms/Scalar/NewGVN.cpp;method:NewGVN::makePossiblePhiOfOps(Instruction *I,SmallPtrSetImpl<Value *> &Visited)
+file:llvm/trunk/lib/Transforms/Scalar/NewGVN.cpp;method:void NewGVN::valueNumberInstruction(Instruction *I)

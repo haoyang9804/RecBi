@@ -1,0 +1,6 @@
+test trunk:223265
+fail opti level:-O3
+fixed trunk:225260
+buggy locations:
+file:trunk/gcc/rtlanal.c;method:bool rtx_varies_p (const_rtx x, bool for_alias)
+file:trunk/gcc/rtlanal.c;method:static int rtx_addr_can_trap_p_1 (const_rtx x, HOST_WIDE_INT offset, HOST_WIDE_INT size,machine_mode mode, bool unaligned_mems)

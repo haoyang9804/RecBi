@@ -1,0 +1,5 @@
+test trunk:247122
+fail opti level:-Os
+fixed trunk:247271
+bugg locations:
+file:/llvm/trunk/lib/Transforms/InstCombine/InstCombineCasts.cpp;method:Instruction *InstCombiner::visitTrunc(TruncInst &CI)

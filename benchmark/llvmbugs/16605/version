@@ -1,0 +1,33 @@
+$ clang-trunk -v
+clang version 3.4 (trunk 186068)
+Target: x86_64-pc-linux-gnu
+Thread model: posix
+$
+$ clang-trunk -Os reduced.c
+$ a.out; echo $?
+1
+$ clang-trunk -O1 reduced.c
+$ a.out; echo $?
+0
+$ clang-3.3 -Os reduced.c
+$ a.out; echo $?
+1
+$ clang-3.2 -Os reduced.c
+$ a.out; echo $?
+1
+$ 
+
+
+---------------------------------------------------
+
+
+int a = -1, b;
+
+unsigned int foo (int p) {  return p; }
+
+int main ()
+{
+  if ((b = 1 % foo (a)) > a)
+    return 0;
+  return 1;
+}

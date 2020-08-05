@@ -1,0 +1,25 @@
+$ gcc-trunk -v
+Using built-in specs.
+COLLECT_GCC=gcc-trunk
+COLLECT_LTO_WRAPPER=/usr/local/gcc-trunk/libexec/gcc/x86_64-unknown-linux-gnu/4.9.0/lto-wrapper
+Target: x86_64-unknown-linux-gnu
+Configured with: ../gcc-trunk/configure --enable-languages=c,c++,objc,obj-c++,fortran,lto --disable-werror --enable-checking=release --with-gmp=/usr/local/gcc-trunk --with-mpfr=/usr/local/gcc-trunk --with-mpc=/usr/local/gcc-trunk --with-cloog=/usr/local/gcc-trunk --prefix=/usr/local/gcc-trunk
+Thread model: posix
+gcc version 4.9.0 20130928 (experimental) [trunk revision 203003] (GCC) 
+$ 
+$ gcc-trunk -O1 small.c
+$ a.out
+1
+$ gcc-4.8 -O3 small.c
+$ a.out
+1
+$ gcc-trunk -O3 small.c
+$ a.out
+0
+$ gcc-trunk -O2 small.c
+$ a.out
+0
+$ gcc-trunk -Os small.c
+$ a.out
+0
+$

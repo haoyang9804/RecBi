@@ -1,0 +1,70 @@
+The following code is miscompiled by the trunk at -O1 and above in both 32-bit and 64-bit modes on x86_64-linux-gnu. 
+
+
+$: clang-trunk -v
+clang version 3.9.0 (trunk 258508)
+Target: x86_64-unknown-linux-gnu
+Thread model: posix
+InstalledDir: /usr/local/bin
+Found candidate GCC installation: /usr/lib/gcc/i686-linux-gnu/4.9
+Found candidate GCC installation: /usr/lib/gcc/i686-linux-gnu/4.9.3
+Found candidate GCC installation: /usr/lib/gcc/i686-linux-gnu/5.2.1
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.4
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.4.7
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.6
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.6.4
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.7
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.7.3
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.8
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.8.4
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.9
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.9.3
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/5.2.1
+Found candidate GCC installation: /usr/local/bin/../lib/gcc/x86_64-unknown-linux-gnu/4.6.3
+Found candidate GCC installation: /usr/local/bin/../lib/gcc/x86_64-unknown-linux-gnu/4.7.4
+Found candidate GCC installation: /usr/local/bin/../lib/gcc/x86_64-unknown-linux-gnu/4.8.2
+Selected GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.9
+Candidate multilib: .;@m64
+Candidate multilib: 32;@m32
+Candidate multilib: x32;@mx32
+Selected multilib: .;@m64
+$: 
+$: clang-trunk -w -O0 small.c ; ./a.out
+$: clang-trunk small.c -O1 -m32 ; ./a.out
+Aborted (core dumped)
+$: clang-trunk small.c -O1 -m64 ; ./a.out
+Aborted (core dumped)
+$: 
+$: cat small.c
+void abort();
+char a;
+int b, c = 9, d, e;
+void fn1() {
+  unsigned f = 1;
+  int g = 8, h = 5;
+  for (; a != 6; a--) {
+    int *i = &h, *j;
+    for (;;) {
+      int k = e, l = ~1;
+      if (g && h) {
+        k = g;
+        l = f;
+        f = -(~(c && b) | -~(e * ~l));
+        if (c < f)
+          abort();
+      }
+      g = k;
+      f = l;
+      if (d <= 8)
+        break;
+      *i = 0;
+      for (; *j <= 0;)
+        ;
+    }
+  }
+}
+int main() {
+  fn1();
+  return 0;
+}
+$:

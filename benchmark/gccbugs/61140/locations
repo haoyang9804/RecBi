@@ -1,0 +1,5 @@
+test trunk:210259
+fail opti level:-O1
+fixed revision:210554
+buggy locations
+file:gcc/tree-ssa-phiopt.c;method:value_replacement (basic_block cond_bb, basic_block middle_bb,edge e0, edge e1, gimple phi,tree arg0, tree arg1)

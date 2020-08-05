@@ -1,0 +1,66 @@
+Bug:33119
+This should be a very recent regression as r303386 doesn't miscompile the code. 
+
+$ clang -v
+clang version 5.0.0 (trunk 303495)
+Target: x86_64-unknown-linux-gnu
+Thread model: posix
+InstalledDir: /usr/local/clang-trunk/bin
+Found candidate GCC installation: /usr/lib/gcc/i686-linux-gnu/5
+Found candidate GCC installation: /usr/lib/gcc/i686-linux-gnu/5.4.0
+Found candidate GCC installation: /usr/lib/gcc/i686-linux-gnu/6
+Found candidate GCC installation: /usr/lib/gcc/i686-linux-gnu/6.0.0
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.4
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.4.7
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.6
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.6.4
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.7
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.7.4
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.8
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.8.5
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.9
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.9.3
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/5
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/5.4.0
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/6
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/6.0.0
+Selected GCC installation: /usr/lib/gcc/x86_64-linux-gnu/5.4.0
+Candidate multilib: .;@m64
+Candidate multilib: 32;@m32
+Candidate multilib: x32;@mx32
+Selected multilib: .;@m64
+$
+$ clang -Os small.c; ./a.out
+$ /usr/local/clang-r303386/bin/clang -Os -mllvm -enable-newgvn small.c; ./a.out
+$
+$ clang -Os -mllvm -enable-newgvn small.c
+$ ./a.out
+Floating point exception (core dumped)
+$
+
+
+------------------------------
+
+
+int a, b, d;
+volatile int c;
+
+int main ()
+{ 
+  int e = 0;
+  for (; e < 1; e++)
+    {
+    L1:
+      if (b)
+        goto L2;
+      int h, i = h = c;
+      b = a = ~0;
+      if (h)
+        goto L1;
+      a = i;
+    L2:
+      c = 1 % ~a;
+      d = h;
+    }
+  return 0;
+}

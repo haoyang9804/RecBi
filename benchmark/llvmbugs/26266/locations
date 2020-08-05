@@ -1,0 +1,5 @@
+test trunk:258508
+fail opti level:-O1 -w
+fixed trunk:258690
+buggy locations:
+file:llvm/trunk/lib/Analysis/DemandedBits.cpp;method:void DemandedBits::determineLiveOperandBits(const Instruction *UserI, const Instruction *I, unsigned OperandNo,const APInt &AOut, APInt &AB, APInt &KnownZero, APInt &KnownOne,APInt &KnownZero2, APInt &KnownOne2)

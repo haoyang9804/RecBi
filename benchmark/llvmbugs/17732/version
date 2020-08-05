@@ -1,0 +1,62 @@
+Bug:17732 
+The following code is miscompiled by the current clang trunk and clang 3.3 on x86_64-linux-gnu at -Os and above in both 32-bit and 64-bit modes. 
+
+This is a regression from clang 3.2. 
+
+$ clang-trunk -v
+clang version 3.4 (trunk 193653)
+Target: x86_64-pc-linux-gnu
+Thread model: posix
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.6
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.6.3
+Selected GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.6
+$ 
+$ clang-trunk -O1 small.c; a.out
+1
+$ clang-trunk -Os small.c; a.out
+0
+$ clang-3.3 -Os small.c; a.out
+0
+$ clang-3.2 -Os small.c; a.out
+1
+$ 
+
+
+---------------------------------
+
+
+int printf (const char *, ...);
+
+struct S0
+{
+  long f2;
+  int f3;
+  int f4;
+  int f5;
+};
+
+struct S1
+{
+  char f0;
+} a;
+
+struct S2
+{
+  int f2;
+  int f3;
+  struct S0 f4;
+  struct S1 f5;
+} b;
+
+int i; 
+
+int
+main ()
+{
+  struct S2 c = { 1, 1, {1, 1, 1, 1}, {1} };
+  b = c;
+  i = c.f4.f5;
+  a = b.f5;
+  printf ("%d\n", a.f0);
+  return 0;
+}

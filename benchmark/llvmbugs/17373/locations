@@ -1,0 +1,9 @@
+test trunk:191356
+fixed revision:193438
+buggy location:
+file:llvm/trunk/lib/Analysis/ScalarEvolutionExpander.cpp;method:SCEVExpander::expandAddRecExprLiterally(const SCEVAddRecExpr *S)
+file:llvm/trunk/lib/Analysis/ScalarEvolutionExpander.cpp;method:isSafeToExpand(const SCEV *S)
+file:llvm/trunk/lib/Transforms/Scalar/LoopStrengthReduce.cpp;method:LSRUse::InsertFormula(const Formula &F) 
+file:llvm/trunk/lib/Transforms/Scalar/LoopStrengthReduce.cpp;method:LSRInstance::CollectFixupsAndInitialFormulae() 
+file:llvm/trunk/lib/Transforms/Scalar/LoopStrengthReduce.cpp;method:LSRInstance::InsertInitialFormula(const SCEV *S, LSRUse &LU, size_t LUIdx)
+file:llvm/trunk/lib/Transforms/Scalar/LoopStrengthReduce.cpp;method:LSRInstance::Expand(const LSRFixup &LF,const Formula &F,BasicBlock::iterator IP,SCEVExpander &Rewriter,SmallVectorImpl<WeakVH> &DeadInsts) const

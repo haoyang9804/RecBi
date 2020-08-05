@@ -1,0 +1,4 @@
+before revision:208617
+fixed revision:208618
+buggy locations:
+file:gcc/tree-ssa-sink.c; method:statement_sink_location (gimple stmt, basic_block frombb, gimple_stmt_iterator *togsi)

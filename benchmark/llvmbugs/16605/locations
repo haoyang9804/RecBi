@@ -1,0 +1,4 @@
+test trunk:186068
+fixed revision:186229
+buggy locations
+file:llvm/trunk/lib/Analysis/InstructionSimplify.cpp;method:SimplifyICmpInst(unsigned Predicate, Value *LHS, Value *RHS,const Query &Q, unsigned MaxRecurse)

@@ -1,0 +1,5 @@
+test trunk:208366
+fail opti level:-O1
+fixed revision:208837
+buggy location
+file:gcc/rtlanal.c;method:rtx_addr_can_trap_p_1 (const_rtx x, HOST_WIDE_INT offset, HOST_WIDE_INT size,enum machine_mode mode, bool unaligned_mems)

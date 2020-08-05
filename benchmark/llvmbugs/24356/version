@@ -1,0 +1,62 @@
+The following code is miscompiled by the current clang trunk on x86_64-linux-gnu at -O1 and above in both 32-bit and 64-bit modes.
+
+This is a regression from 3.6.x. 
+
+$ clang-trunk -v
+clang version 3.8.0 (trunk 243961)
+Target: x86_64-unknown-linux-gnu
+Thread model: posix
+Found candidate GCC installation: /usr/lib/gcc/i686-linux-gnu/4.9
+Found candidate GCC installation: /usr/lib/gcc/i686-linux-gnu/4.9.2
+Found candidate GCC installation: /usr/lib/gcc/i686-linux-gnu/5.1.0
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.4
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.4.7
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.6
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.6.4
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.7
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.7.3
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.8
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.8.2
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.9
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.9.2
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/5.1.0
+Selected GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.9
+Candidate multilib: .;@m64
+Candidate multilib: 32;@m32
+Candidate multilib: x32;@mx32
+Selected multilib: .;@m64
+$
+$ clang-trunk -O0 small.c; ./a.out
+$ clang-3.6 -O1 small.c; ./a.out
+$
+$ clang-trunk -O1 small.c
+$ ./a.out
+Aborted (core dumped)
+$
+
+
+---------------------------------
+
+
+int a;
+
+void
+fn1 ()
+{ 
+  char b = 0;
+  for (; b != -2; b--)
+    for (a = 0 ; a < 1; a++)
+      if ((unsigned int) b > 1)
+        return;
+}
+
+int
+main ()
+{ 
+  fn1 ();
+
+  if (a != 0)
+    __builtin_abort ();
+
+  return 0;
+}

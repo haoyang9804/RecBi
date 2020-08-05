@@ -1,0 +1,6 @@
+test trunk:216691
+fail opti level:-O2;-O3
+fixed trunk:216985
+buggy locations:
+file:/trunk/gcc/ree.c;method:combine_set_extension (ext_cand *cand, rtx_insn *curr_insn, rtx *orig_set)
+file:/trunk/gcc/ree.c;method:transform_ifelse (ext_cand *cand, rtx_insn *def_insn)

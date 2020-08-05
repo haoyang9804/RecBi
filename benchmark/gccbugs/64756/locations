@@ -1,0 +1,5 @@
+test trunk:220011
+fail opti level:-O3 -m32
+fixed trunk:220377
+buggy locations:
+file: /trunk/gcc/cse.c;method:cse_insn (rtx_insn *insn)

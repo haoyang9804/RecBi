@@ -1,0 +1,50 @@
+$ clang -v
+clang version 4.0.0 (trunk 284107)
+Target: x86_64-unknown-linux-gnu
+Thread model: posix
+InstalledDir: /usr/local/clang-trunk/bin
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.4
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.4.7
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.6
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.6.4
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.7
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.7.3
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.8
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.8.4
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.9
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.9.3
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/5
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/5.3.0
+Selected GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.9
+Candidate multilib: .;@m64
+Candidate multilib: 32;@m32
+Candidate multilib: x32;@mx32
+Selected multilib: .;@m64
+$ 
+$ clang -O1 small.c; ./a.out
+$ clang-3.8 -Os small.c; ./a.out
+$ 
+$ clang -Os small.c
+$ ./a.out
+Aborted (core dumped)
+$ 
+
+
+---------------------------------------
+
+
+static int *b;
+int **c = &b, **d = &b, e, f, g;
+
+int main ()
+{
+  int **h = &b;
+  for (; g < 1; g++)
+    {
+      *c = &e;
+      if (!b)
+        __builtin_abort (); 
+      *h = &f;
+    }
+  return 0; 
+}

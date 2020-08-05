@@ -1,0 +1,4 @@
+test trunk:181995
+fixed revision:183239
+buggy locations
+file:llvm/trunk/lib/Transforms/Scalar/IndVarSimplify.cpp;method:IndVarSimplify::RewriteLoopExitValues(Loop *L, SCEVExpander &Rewriter)

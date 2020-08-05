@@ -1,0 +1,8 @@
+test trunk:303495
+fail opti level:-Os -mllvm -enable-newgvn
+fixed trunk:303875
+buggy locations:
+file:llvm/trunk/lib/Transforms/Scalar/NewGVN.cpp;method:PHIExpression *NewGVN::createPHIExpression(Instruction *I, bool &HasBackedge,bool &OriginalOpsConstant) const
+file:llvm/trunk/lib/Transforms/Scalar/NewGVN.cpp;method:bool NewGVN::isCycleFree(const Instruction *I) const
+file:llvm/trunk/lib/Transforms/Scalar/NewGVN.cpp;method:const Expression *NewGVN::performSymbolicPHIEvaluation(Instruction *I) const
+file:llvm/trunk/lib/Transforms/Scalar/NewGVN.cpp;method:bool NewGVN::eliminateInstructions(Function &F)

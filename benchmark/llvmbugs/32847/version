@@ -1,0 +1,60 @@
+$ clang -v
+clang version 5.0.0 (trunk 301611)
+Target: x86_64-unknown-linux-gnu
+Thread model: posix
+InstalledDir: /usr/local/clang-trunk/bin
+Found candidate GCC installation: /usr/lib/gcc/i686-linux-gnu/5
+Found candidate GCC installation: /usr/lib/gcc/i686-linux-gnu/5.4.0
+Found candidate GCC installation: /usr/lib/gcc/i686-linux-gnu/6
+Found candidate GCC installation: /usr/lib/gcc/i686-linux-gnu/6.0.0
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.4
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.4.7
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.6
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.6.4
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.7
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.7.4
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.8
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.8.5
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.9
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.9.3
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/5
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/5.4.0
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/6
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/6.0.0
+Selected GCC installation: /usr/lib/gcc/x86_64-linux-gnu/5.4.0
+Candidate multilib: .;@m64
+Candidate multilib: 32;@m32
+Candidate multilib: x32;@mx32
+Selected multilib: .;@m64
+$ 
+$ clang -O0 small.c; ./a.out
+$ clang -Os small.c; ./a.out
+$ 
+$ clang -Os -mllvm -enable-newgvn small.c
+$ ./a.out
+1
+$ 
+
+
+------------------------------------
+
+
+int printf (const char *, ...);
+
+int a, b = -2;
+
+int main ()
+{
+  for (; a < 1; a++)
+    {
+      int c = ~b;
+      if (b > c || !c)
+	{
+	  printf ("0");
+	  continue;
+	}
+      if (c < 0)
+	printf ("1\n");
+    }
+  return 0;
+}

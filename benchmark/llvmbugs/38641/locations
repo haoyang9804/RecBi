@@ -1,0 +1,5 @@
+test trunk:340155
+fail opti level:-O2
+fixed trunk:340222
+buggy locations:
+file:llvm/trunk/lib/Transforms/InstCombine/InstCombineSelect.cpp;method:Instruction *InstCombiner::foldSelectOpOp(SelectInst &SI, Instruction *TI,Instruction *FI)

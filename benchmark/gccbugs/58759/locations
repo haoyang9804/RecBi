@@ -1,0 +1,5 @@
+test trunk:203716
+fail opti level:-m32 -O2
+fixed trunk:204080
+buggy locations:
+file:trunk/gcc/lra-constraints.c;method:bool lra_constraints (bool first_p)

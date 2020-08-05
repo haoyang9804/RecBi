@@ -1,0 +1,5 @@
+test trunk:205097
+fail opti level:-O2;-O3
+fixed revision:205229
+buggy location
+file:gcc/tree-ssa-threadedge.c;method:thread_across_edge (gimple dummy_cond,edge e,bool handle_dominating_asserts,vec<tree> *stack,tree (*simplify) (gimple, gimple))

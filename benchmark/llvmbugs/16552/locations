@@ -1,0 +1,5 @@
+test trunk:185684
+fixed revision:195008
+buggy locations
+file:llvm/trunk/lib/Transforms/Vectorize/LoopVectorize.cpp;method:InnerLoopVectorizer::createEmptyLoop(LoopVectorizationLegality *Legal) 
+file:llvm/trunk/lib/Transforms/Vectorize/LoopVectorize.cpp;method:convertPointerToIntegerType(DataLayout &DL, Type *Ty)

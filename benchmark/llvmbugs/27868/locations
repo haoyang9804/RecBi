@@ -1,0 +1,5 @@
+test trunk:271236
+fail opti level:-O1
+fixed trunk:271857
+buggy locations:
+file:/llvm/trunk/lib/Transforms/InstCombine/InstCombineMulDivRem.cpp;method:InstCombiner::commonIRemTransforms(BinaryOperator &I) 

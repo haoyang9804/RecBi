@@ -1,0 +1,45 @@
+$ clang-trunk -v
+clang version 3.4 (trunk 181995)
+Target: x86_64-pc-linux-gnu
+Thread model: posix
+$ mv try2.c crash.c
+$ clang-trunk -v
+clang version 3.4 (trunk 181995)
+Target: x86_64-pc-linux-gnu
+Thread model: posix
+$ clang-trunk -O2 crash.c 
+$ ./a.out 
+$ clang-trunk -O3 crash.c 
+$ ./a.out 
+Floating point exception (core dumped)
+
+-------------------------------------------
+
+short s;
+int a;
+int b, c;
+volatile int v;
+static int u[] = { 0, 0, 0, 0, 0, 1 };
+
+void foo() {
+  int i, j;
+  for (; b <= 0; ++b) {
+    int k, d = 0;
+    for (; d <= 5; d++) {
+      int *l = &c;
+      int e = 0;
+      for (; e <= 0; e++) {
+        int *m = &k;
+        unsigned int n = u[d];
+        i = !a ? n : n / a;
+        j = s ? 0 : (1 >> v);
+        *m = j;
+      }
+      *l = k < i;
+    }
+  }
+}
+int main() {
+  foo();
+  return 0;
+}

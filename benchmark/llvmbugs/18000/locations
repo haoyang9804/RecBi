@@ -1,0 +1,4 @@
+test trunk:195148
+fixed revision:198863
+buggy location
+file:/lib/Analysis/ScalarEvolution.cpp;method:ScalarEvolution::isImpliedCond(ICmpInst::Predicate Pred,const SCEV *LHS, const SCEV *RHS,Value *FoundCondValue,bool Inverse)

@@ -1,0 +1,36 @@
+The following code is miscompiled on gcc trunk and 4.8 branch on x86_64-linux-gnu, at -O3 optimization level, in 32-bit mode, resulting in output of 0 rather than 1.  It is compiled correctly at all optimization levels with gcc 4.7.
+
+$ gcc-trunk -v
+gcc version 4.9.0 20130520 (experimental) [trunk revision 199099] (GCC) 
+$ gcc-trunk -O2 -m32 wrong.c 
+$ ./a.out 
+1
+$ gcc-trunk -O3 -m64 wrong.c 
+$ ./a.out 
+1
+$ gcc-4.7 -O3 -m32 wrong.c 
+$ ./a.out 
+1
+$ gcc-trunk -O3 -m32 wrong.c 
+$ ./a.out 
+0
+
+-------------------------------
+int printf(const char *, ...);
+int a, d;
+int *b = &a, **c;
+int main ()
+{
+    int e;
+    {
+        int f[4];
+        for (d = 0; d < 4; d++)
+            f[d] = 1;
+        e = f[1];
+    }
+    int *g[28] = { };
+    *b = e;
+    c = &g[0];
+    printf ("%d\n", a);
+    return 0;
+}

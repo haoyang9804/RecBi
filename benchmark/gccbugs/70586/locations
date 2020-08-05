@@ -1,0 +1,5 @@
+test trunk:234805
+fail opti level:-O3 -w -m32
+fixed trunk:234849
+buggy locations:
+file:trunk/gcc/tree-ssa-ifcombine.c;method:static bool bb_no_side_effects_p (basic_block bb)

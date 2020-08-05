@@ -1,0 +1,48 @@
+The current gcc trunk mis-compiles the following code on x86_64-linux-gnu at -Os and above in both 32-bit and 64-bit modes. 
+
+This is a regression from 5.1.x.
+
+$ gcc-trunk -v
+Using built-in specs.
+COLLECT_GCC=gcc-trunk
+COLLECT_LTO_WRAPPER=/usr/local/gcc-trunk/libexec/gcc/x86_64-unknown-linux-gnu/6.0.0/lto-wrapper
+Target: x86_64-unknown-linux-gnu
+Configured with: ../gcc-trunk/configure --prefix=/usr/local/gcc-trunk --enable-languages=c,c++ --disable-werror --enable-multilib
+Thread model: posix
+gcc version 6.0.0 20150713 (experimental) [trunk revision 225727] (GCC) 
+$ 
+$ gcc-trunk -O1 small.c; ./a.out
+$ gcc-5.1 -Os small.c; ./a.out
+$ 
+$ gcc-trunk -Os small.c
+$ ./a.out
+Floating point exception (core dumped)
+$ 
+
+
+---------------------------------
+
+
+int a, b;
+
+int
+fn1 (int p1)
+{
+  if (p1 < -2147483647) 
+    return 0;
+  else 
+    return 1;
+}
+
+int
+fn2 (int p1, short p2)
+{
+  return p2 ? p1 % p2 : 0; 
+}
+
+int
+main ()
+{
+  b = fn2 (fn1 (a), a);
+  return 0;
+}

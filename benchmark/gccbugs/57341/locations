@@ -1,0 +1,5 @@
+test trunk:199099
+fail opti level:-O3 -m32
+fixed trunk:199237
+buggy locations:
+file:trunk/gcc/ira.c;method:static void validate_equiv_mem_from_store (rtx dest, const_rtx set ATTRIBUTE_UNUSED, void *data ATTRIBUTE_UNUSED)

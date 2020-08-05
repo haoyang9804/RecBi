@@ -1,0 +1,6 @@
+test trunk:277294
+fail opti level:-O2
+fixed trunk:277611
+buggy locations:
+file:/llvm/trunk/lib/Analysis/InstructionSimplify.cpp;method:replaceAndRecursivelySimplifyImpl(Instruction *I, Value *SimpleV,const TargetLibraryInfo *TLI,const DominatorTree *DT,AssumptionCache *AC) 
+file:/llvm/trunk/lib/Transforms/Utils/CloneFunction.cpp;method:llvm::CloneAndPruneIntoFromInst(Function *NewFunc, const Function *OldFunc,const Instruction *StartingInst,ValueToValueMapTy &VMap,bool ModuleLevelChanges,SmallVectorImpl<ReturnInst *> &Returns,const char *NameSuffix,ClonedCodeInfo *CodeInfo)

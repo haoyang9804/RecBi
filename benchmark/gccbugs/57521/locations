@@ -1,0 +1,11 @@
+before revision:202018
+fixed revision:202019
+buggy locations:
+file:gcc/tree-if-conv.c; method:bb_postdominates_preds (basic_block bb)
+file:gcc/tree-if-conv.c; method:if_convertible_bb_p (struct loop *loop, basic_block bb, basic_block exit_bb)
+file:gcc/tree-if-conv.c; method:if_convertible_loop_p_1 (struct loop *loop,vec<loop_p> *loop_nest,vec<data_reference_p> *refs, vec<ddr_p> *ddrs)
+file:gcc/tree-if-conv.c; method:find_phi_replacement_condition (struct loop *loop,basic_block bb, tree *cond,gimple_stmt_iterator *gsi)
+file:gcc/tree-if-conv.c; method:predicate_scalar_phi (gimple phi, tree cond,basic_block true_bb,gimple_stmt_iterator *gsi)
+file:gcc/tree-if-conv.c; method:predicate_all_scalar_phis (struct loop *loop)
+file:gcc/tree-if-conv.c; method:combine_blocks (struct loop *loop)
+file:gcc/tree-if-conv.c; method:main_tree_if_conversion (void)

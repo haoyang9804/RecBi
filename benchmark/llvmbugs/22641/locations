@@ -1,0 +1,5 @@
+test trunk:229830
+fail opti level:-O1
+fixed revision:230291
+buggy location
+file:/lib/Analysis/ScalarEvolution.cpp;method:getPreStartForExtend(const SCEVAddRecExpr *AR, Type *Ty, ScalarEvolution *SE)

@@ -1,0 +1,5 @@
+test trunk:237336
+fail opti level:-O3 -m64
+fixed trunk:238212
+buggy locations:
+file:gcc/tree-vect-data-refs.c;method:bool vect_compute_data_ref_alignment (struct data_reference *dr)

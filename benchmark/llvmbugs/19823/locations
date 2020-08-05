@@ -1,0 +1,5 @@
+test trunk:209291
+fail opti level:-O2,-O3
+fixed trunk:
+buggy locations:
+file:/llvm/trunk/lib/Transforms/Utils/LoopUnrollRuntime.cpp;method:llvm::UnrollRuntimeLoopProlog(Loop *L, unsigned Count, LoopInfo *LI, LPPassManager *LPM)

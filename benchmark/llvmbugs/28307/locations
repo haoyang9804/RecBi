@@ -1,0 +1,5 @@
+test trunk:273774
+fail opti level:-O3
+fixed trunk:274470
+buggy locations:
+file:/llvm/trunk/lib/CodeGen/MachineBasicBlock.cpp;method:MachineBasicBlock::updateTerminator() 

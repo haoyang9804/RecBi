@@ -1,0 +1,6 @@
+before revision:196546
+fixed revision:196547
+buggy locations
+file:gcc/predict.c; method:is_comparison_with_loop_invariant_p (gimple stmt, struct loop *loop, tree *loop_invariant, enum tree_code *compare_code, int *loop_step, tree *loop_iv_base)
+file:gcc/predict.c; method:predict_iv_comparison (struct loop *loop, basic_block bb, tree loop_bound_var,tree loop_iv_base_var,enum tree_code loop_bound_code,int loop_bound_step)
+file:gcc/predict.c; method:predict_loops (void)

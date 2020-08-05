@@ -1,0 +1,5 @@
+test trunk:225987
+fail opti level:-O2;-O3
+fixed trunk:226062
+buggy locations:
+file:/trunk/gcc/tree-ssa-ifcombine.c;method:pass_tree_ifcombine::execute (function *fun)

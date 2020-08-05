@@ -1,0 +1,47 @@
+The current gcc trunk (as well as 4.9.x and 5.1.x) miscompiles the following code on x86_64-linux at -O3 in both 32-bit and 64-bit modes. 
+
+This is a regression from 4.8.x. 
+
+
+$ gcc-trunk -v
+Using built-in specs.
+COLLECT_GCC=gcc-trunk
+COLLECT_LTO_WRAPPER=/usr/local/gcc-trunk/libexec/gcc/x86_64-unknown-linux-gnu/6.0.0/lto-wrapper
+Target: x86_64-unknown-linux-gnu
+Configured with: ../gcc-trunk/configure --prefix=/usr/local/gcc-trunk --enable-languages=c,c++ --disable-werror --enable-multilib
+Thread model: posix
+gcc version 6.0.0 20150517 (experimental) [trunk revision 223265] (GCC) 
+$ 
+$ gcc-trunk -O2 small.c; ./a.out
+$ gcc-4.8.4 -O3 small.c; ./a.out
+$ 
+$ gcc-trunk -O3 small.c
+$ ./a.out
+Segmentation fault (core dumped)
+$ gcc-5.1 -O3 small.c 
+$ ./a.out
+Segmentation fault (core dumped)
+$ gcc-4.9.2 -O3 small.c
+$ ./a.out
+Segmentation fault (core dumped)
+$ 
+
+
+--------------------------------------
+
+
+int a;
+
+int
+main ()
+{
+  int b = -1, d, e = 0, f[2] = { 0 };
+  unsigned short c = b;
+  for (; e < 3; e++)
+    for (d = 0; d < 2; d++)
+      if (a < 0)
+    for (d = 0; d < 2; d++)
+      if (f[c])
+        break;
+  return 0;
+}

@@ -1,0 +1,5 @@
+test trunk:298721
+fail opti level:-Os
+fixed trunk:298882
+buggy locations:
+file:/llvm/trunk/lib/Transforms/Vectorize/LoopVectorize.cpp;method:InnerLoopVectorizer::widenIntOrFpInduction(PHINode *IV, TruncInst *Trunc)

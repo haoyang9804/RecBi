@@ -1,0 +1,5 @@
+test trunk:250539
+fail opti level:-Os
+fixed trunk:250692
+buggy locations:
+file:llvm/trunk/lib/Analysis/GlobalsModRef.cpp;method:void GlobalsAAResult::AnalyzeCallGraph(CallGraph &CG, Module &M)

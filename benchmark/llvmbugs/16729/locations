@@ -1,0 +1,4 @@
+test trunk:187322
+fixed revision:197449
+buggy location
+file:llvm/trunk/lib/Transforms/Vectorize/LoopVectorize.cpp;method:LoopVectorizationLegality::canVectorizeWithIfConvert()

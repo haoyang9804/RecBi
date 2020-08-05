@@ -1,0 +1,5 @@
+test trunk:253909
+fail opti level:-O1 -m32,-O2 -m32, -O3 -m32
+fixed trunk:254448
+buggy locations:
+file:/llvm/trunk/lib/Target/X86/X86FrameLowering.cpp;method:X86FrameLowering::BuildStackAdjustment(MachineBasicBlock &MBB, MachineBasicBlock::iterator MBBI, DebugLoc DL,int64_t Offset, bool InEpilogue) const

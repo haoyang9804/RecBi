@@ -1,0 +1,5 @@
+test trunk:237156
+fail opti level:-O3
+fixed trunk:237476
+buggy locations:
+file:trunk/gcc/tree-vect-loop.c;method:static bool vect_analyze_loop_operations (loop_vec_info loop_vinfo)

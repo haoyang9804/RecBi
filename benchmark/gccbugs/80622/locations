@@ -1,0 +1,8 @@
+test trunk:247550
+fail opti level:-O1 -m32
+fixed trunk:247604
+buggy locations:
+file:trunk/gcc/tree-sra.c;method:static bool disqualify_if_bad_bb_terminating_stmt (gimple *stmt, tree lhs, tree rhs)
+file:trunk/gcc/tree-sra.c;method:static bool build_accesses_from_assign (gimple *stmt)
+file:trunk/gcc/tree-sra.c;method:static bool analyze_access_subtree (struct access *root, struct access *parent, bool allow_replacements)
+file:trunk/gcc/tree-sra.c;method:static bool propagate_subaccesses_across_link (struct access *lacc, struct access *racc)

@@ -1,0 +1,8 @@
+test trunk:304675
+fail opti level:-Os -mllvm -enable-newgvn
+fixed trunk:312401
+buggy locations:
+file:llvm/trunk/lib/Transforms/Scalar/NewGVN.cpp;method:const Expression *NewGVN::checkSimplificationResults(Expression *E,Instruction *I, Value *V) const
+file:llvm/trunk/lib/Transforms/Scalar/NewGVN.cpp;method:const Expression *NewGVN::createExpression(Instruction *I) const
+file:llvm/trunk/lib/Transforms/Scalar/NewGVN.cpp;method:const Expression *NewGVN::performSymbolicStoreEvaluation(Instruction *I) const
+file:llvm/trunk/lib/Transforms/Scalar/NewGVN.cpp;method:static bool okayForPHIOfOps(const Instruction *I)

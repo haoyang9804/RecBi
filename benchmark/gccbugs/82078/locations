@@ -1,0 +1,7 @@
+test trunk:251580
+fail opti level:-O3
+fixed trunk:251756
+buggy locations:
+file:trunk/gcc/tree-sra.c;method:static bool build_accesses_from_assign (gimple *stmt)
+file:trunk/gcc/tree-sra.c;method:static struct access * sort_and_splice_var_accesses (tree var)
+file:trunk/gcc/tree-sra.c;method:static void propagate_all_subaccesses (void)

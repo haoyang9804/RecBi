@@ -1,0 +1,5 @@
+test trunk:277497
+fail opti level:-O3
+fixed trunk:278370
+buggy locations:
+file: /llvm/trunk/lib/CodeGen/TwoAddressInstructionPass.cpp;method：TwoAddressInstructionPass::rescheduleMIBelowKill(MachineBasicBlock::iterator &mi, MachineBasicBlock::iterator &nmi,unsigned Reg) 

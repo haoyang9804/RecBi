@@ -1,0 +1,63 @@
+This also affects 3.8.0 and 3.8.1, and is a regression from 3.7.x. 
+
+$ clang -v
+clang version 4.0.0 (trunk 279924)
+Target: x86_64-unknown-linux-gnu
+Thread model: posix
+InstalledDir: /usr/local/clang-trunk/bin
+Found candidate GCC installation: /usr/lib/gcc/i686-linux-gnu/4.9
+Found candidate GCC installation: /usr/lib/gcc/i686-linux-gnu/4.9.3
+Found candidate GCC installation: /usr/lib/gcc/i686-linux-gnu/5
+Found candidate GCC installation: /usr/lib/gcc/i686-linux-gnu/5.3.0
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.4
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.4.7
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.6
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.6.4
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.7
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.7.3
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.8
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.8.5
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.9
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.9.3
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/5
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/5.3.0
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/6
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/6.1.1
+Selected GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.9
+Candidate multilib: .;@m64
+Candidate multilib: 32;@m32
+Candidate multilib: x32;@mx32
+Selected multilib: .;@m64
+$ 
+$ clang -m32 -O1 small.c; ./a.out
+0
+$ clang-3.7 -m32 -Os small.c; ./a.out
+0
+$ 
+$ clang -m32 -Os small.c; ./a.out
+$ clang-3.8.1 -m32 -Os small.c; ./a.out
+$ clang-3.8.0 -m32 -Os small.c; ./a.out
+$ 
+
+
+----------------------------------------------
+
+
+int printf (const char *, ...);
+
+int a, b, c = 2, d;
+unsigned short e;
+
+char fn1 (int p1)
+{
+  return p1 ? a / p1 : a;
+}
+
+int main ()
+{
+  e = fn1 (c);
+  long long f = ~(~(d | 4294967295) & ~b);
+  if (f > e)
+    printf ("0\n") ;
+  return 0; 
+}

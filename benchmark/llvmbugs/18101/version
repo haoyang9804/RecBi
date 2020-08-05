@@ -1,0 +1,68 @@
+$ clang-trunk -v
+clang version 3.5 (trunk 195973)
+Target: x86_64-unknown-linux-gnu
+Thread model: posix
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.4
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.4.6
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.4.7
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.6
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.6.3
+Selected GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.6
+$      
+$ clang-trunk -O1 small.c; a.out
+0
+$ clang-3.0 -Os small.c; a.out
+0
+$ gcc-trunk -Os small.c; a.out
+0
+$ icc -Os small.c; a.out
+0
+$ 
+$ clang-trunk -Os small.c; a.out
+1
+$ clang-3.3 -Os small.c; a.out
+1
+$ clang-3.2 -Os small.c; a.out
+1
+$ clang-3.1 -Os small.c; a.out
+1
+$           
+
+
+----------------------------------
+
+
+int printf (const char *, ...);
+
+struct S
+{
+  int f0;
+  int f1:25; 
+};
+
+int a, b, *c = &b, d;
+
+struct S
+fn1 ()
+{
+  struct S e = {0, 0};
+  if (!d)
+    {
+      struct S f = {0, -1};
+      return f;
+    }
+  return e;
+}
+
+int
+main ()
+{
+  struct S g = fn1 (), h = g;
+  for (a = 0; a < 1; a++)
+    {
+      *c = 0;
+      *c = 1 <= ((h.f0 >= *c) ^ (h.f1 |= 1));
+    }
+  printf ("%d\n", b);
+  return 0;
+}

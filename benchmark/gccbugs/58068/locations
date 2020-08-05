@@ -1,0 +1,6 @@
+before revision:201465
+fixed revision:201466
+buggy locations:
+file:gcc/gimple-ssa-strength-reduction.c; method:replace_mult_candidate (slsr_cand_t c, tree basis_name, double_int bump)
+file:gcc/gimple-ssa-strength-reduction.c; method:replace_rhs_if_not_dup (enum tree_code new_code, tree new_rhs1, tree new_rhs2, enum tree_code old_code, tree old_rhs1, tree old_rhs2, slsr_cand_t c)
+file:gcc/gimple-ssa-strength-reduction.c; method:replace_one_candidate (slsr_cand_t c, unsigned i, tree basis_name)

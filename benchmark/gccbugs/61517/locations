@@ -1,0 +1,8 @@
+test trunk:211685
+fail opti level:-Os
+fixed trunk:211778
+buggy locations:
+file:/trunk/gcc/tree-ssa-math-opts.c;method:find_bswap_or_nop_1 (gimple stmt, struct symbolic_number *n, int limit)
+file:/trunk/gcc/tree-ssa-math-opts.c;method:find_bswap_or_nop (gimple stmt, struct symbolic_number *n, bool *bswap)
+file:/trunk/gcc/tree-ssa-math-opts.c;method:bswap_replace (gimple cur_stmt, gimple_stmt_iterator gsi, gimple src_stmt, tree fndecl, tree bswap_type, tree load_type, struct symbolic_number *n, bool bswap)
+file:/trunk/gcc/tree-ssa-math-opts.c;method:pass_optimize_bswap::execute (function *fun)

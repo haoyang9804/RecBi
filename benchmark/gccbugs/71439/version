@@ -1,0 +1,31 @@
+The following code is miscompiled by the trunk at -O3 in both 32-bit and 64-bit modes on x86_64-linux-gnu. 
+
+$: gcc-trunk -v
+Using built-in specs.
+COLLECT_GCC=gcc-trunk
+COLLECT_LTO_WRAPPER=/usr/local/gcc-trunk/libexec/gcc/x86_64-pc-linux-gnu/7.0.0/lto-wrapper
+Target: x86_64-pc-linux-gnu
+Configured with: ../gcc-source-trunk/configure --enable-languages=c,c++,lto --prefix=/usr/local/gcc-trunk --disable-bootstrap
+Thread model: posix
+gcc version 7.0.0 20160606 (experimental) [trunk revision 237156] (GCC) 
+$: 
+$: gcc-trunk -O3 small.c ; ./a.out
+0
+$: gcc-trunk -O2 small.c ; ./a.out
+6
+$: 
+$: cat small.c
+int printf(const char*, ...);
+int a, b, c;
+short fn1(int p1, int p2) { return p1 + p2; }
+
+int main() {
+  a = 0;
+  for (; a < 30; a = fn1(a, 4)) {
+    c = b;
+    b = 6;
+  }
+  printf("%d\n", c);
+  return 0;
+}
+$:

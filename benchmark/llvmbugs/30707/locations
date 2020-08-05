@@ -1,0 +1,5 @@
+test trunk:284107
+fail opti level:-Os
+fixed trunk:285034
+buggy locations:
+file:/llvm/trunk/lib/Analysis/GlobalsModRef.cpp;method:GlobalsAAResult::AnalyzeUsesOfPointer(Value *V,SmallPtrSetImpl<Function *> *Readers,SmallPtrSetImpl<Function *> *Writers,GlobalValue *OkayStoreDest)

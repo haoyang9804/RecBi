@@ -1,0 +1,45 @@
+$ clang-trunk -v
+clang version 3.4 (trunk 191356)
+Target: x86_64-pc-linux-gnu
+Thread model: posix
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.4
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.4.6
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.4.7
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.6
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.6.3
+Selected GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.6
+$ 
+$ clang-trunk -O2 small.c; a.out
+$ clang-trunk -O3 small.c; a.out
+Floating point exception (core dumped)
+$ clang-3.3 -O3 small.c; a.out
+Floating point exception (core dumped)
+$ clang-3.2 -O3 small.c; a.out
+Floating point exception (core dumped)
+$ clang-3.1 -O3 small.c; a.out
+Floating point exception (core dumped)
+$ clang-3.0 -O3 small.c; a.out
+Floating point exception (core dumped)
+$ 
+
+
+--------------------------
+
+
+int a, c, d, e, f, g;
+unsigned int b;
+
+int main ()
+{
+  for (; c < 1; c++)
+    for (; e; e++)
+      {
+	f = b ? 1 : a / b;
+	g = f * e;
+	if (g)
+	  for (;; d++)
+	    ;
+      }
+
+  return 0;
+}

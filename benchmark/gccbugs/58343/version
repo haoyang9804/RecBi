@@ -1,0 +1,32 @@
+$ gcc-trunk -v
+Using built-in specs.
+COLLECT_GCC=gcc-trunk
+COLLECT_LTO_WRAPPER=/usr/local/gcc-trunk/libexec/gcc/x86_64-unknown-linux-gnu/4.9.0/lto-wrapper
+Target: x86_64-unknown-linux-gnu
+Configured with: ../gcc-trunk/configure --enable-languages=c,c++,objc,obj-c++,fortran,lto --with-gmp=/usr/local/gcc-trunk --with-mpfr=/usr/local/gcc-trunk --with-mpc=/usr/local/gcc-trunk --with-cloog=/usr/local/gcc-trunk --prefix=/usr/local/gcc-trunk
+Thread model: posix
+gcc version 4.9.0 20130906 (experimental) [trunk revision 202308] (GCC) 
+$ gcc-trunk -O0 small.c
+$ gcc-4.8 -O1 small.c
+$ gcc-trunk -O1 small.c
+small.c: In function ‘main’:
+small.c:3:5: internal compiler error: in dfs_enumerate_from, at cfganal.c:1036
+ int main ()
+     ^
+0x608c4b dfs_enumerate_from(basic_block_def*, int, bool (*)(basic_block_def const*, void const*), basic_block_def**, int, void const*)
+	../../gcc-trunk/gcc/cfganal.c:1036
+0xa96d66 determine_bb_domination_status
+	../../gcc-trunk/gcc/tree-ssa-threadupdate.c:825
+0xa96d66 thread_through_loop_header
+	../../gcc-trunk/gcc/tree-ssa-threadupdate.c:995
+0xa96d66 thread_through_all_blocks(bool)
+	../../gcc-trunk/gcc/tree-ssa-threadupdate.c:1279
+0x9fabab tree_ssa_dominator_optimize
+	../../gcc-trunk/gcc/tree-ssa-dom.c:849
+0x9fabab execute
+	../../gcc-trunk/gcc/tree-ssa-dom.c:951
+Please submit a full bug report,
+with preprocessed source if appropriate.
+Please include the complete backtrace with any bug report.
+See <http://gcc.gnu.org/bugs.html> for instructions.
+$ 

@@ -1,0 +1,5 @@
+test trunk:213212
+fail opti level:-O2,-O3
+fixed trunk:215604
+buggy locations:
+file: /llvm/trunk/lib/Target/X86/X86ISelLowering.cpp;method:LowerMUL_LOHI(SDValue Op, const X86Subtarget *Subtarget, SelectionDAG &DAG)

@@ -1,0 +1,70 @@
+The current gcc trunk and 4.9.x miscompile the following code on x86_64-linux at -O2 and -O3 in both 32-bit and 64-bit modes. 
+
+This is a regression from 4.8.x. 
+
+$ gcc-trunk -v
+Using built-in specs.
+COLLECT_GCC=gcc-trunk
+COLLECT_LTO_WRAPPER=/usr/local/gcc-trunk/libexec/gcc/x86_64-unknown-linux-gnu/5.0.0/lto-wrapper
+Target: x86_64-unknown-linux-gnu
+Configured with: ../gcc-trunk/configure --prefix=/usr/local/gcc-trunk --enable-languages=c,c++ --disable-werror --enable-multilib
+Thread model: posix
+gcc version 5.0.0 20141122 (experimental) [trunk revision 217971] (GCC) 
+
+$ gcc-trunk -Os small.c; a.out
+0
+$ gcc-4.8 -O2 small.c; a.out
+0
+$ 
+$ gcc-trunk -O2 small.c; a.out
+$ gcc-4.9 -O2 small.c; a.out
+$ 
+
+----------------------------------
+
+int printf (const char *, ...);
+
+int a, b = 1, d;
+
+union U1
+{
+  unsigned int f0;
+  int f1;
+};
+
+union U2
+{
+  int f2;
+  int f3;
+} c;
+
+int
+fn1 (int p)
+{
+  int t = p && a || p && a && p; 
+  return t ? t : a;
+}
+
+unsigned
+fn2 (union U1 p1, union U2 p2)
+{
+  if (p1.f1 <= 0)
+    {
+      for (; p2.f2;)
+    c.f2 = 0;
+      p2.f2 = fn1 (d);
+    }
+  return p2.f3;
+}
+
+int
+main ()
+{
+  if (b)
+    {
+      union U1 f = { 0xFFFFFFFFU }; 
+      fn2 (f, c);
+    }
+  printf ("%d\n", 0);
+  return 0; 
+}

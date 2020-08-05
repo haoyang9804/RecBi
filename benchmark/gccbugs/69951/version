@@ -1,0 +1,41 @@
+The current gcc trunk mis-compiles the following code on x86_64-linux-gnu at -O1 and above in both 32-bit and 64-bit modes.
+
+It affects as early as gcc-4.4.3 (I don't have earlier gcc on my machine).
+
+
+$ gcc-trunk -v
+Using built-in specs.
+COLLECT_GCC=gcc-trunk
+COLLECT_LTO_WRAPPER=/home/absozero/trunk/root-gcc/libexec/gcc/x86_64-pc-linux-gnu/6.0.0/lto-wrapper
+Target: x86_64-pc-linux-gnu
+Configured with: ../gcc/configure --prefix=/home/absozero/trunk/root-gcc --enable-languages=c,c++ --disable-werror --enable-multilib
+Thread model: posix
+gcc version 6.0.0 20160224 (experimental) [trunk revision 233678] (GCC)
+
+
+
+
+$ gcc-trunk abc.c
+$ ./a.out
+$ gcc-trunk -O1 abc.c
+$ ./a.out
+Aborted (core dumped)
+
+
+
+$ cat abc.c
+int a = 1, c = 1;
+extern int b __attribute__((alias("a")));
+extern int d __attribute__((alias("c")));
+int main(int argc) {
+  int *p, *q;
+  if (argc)
+    p = &c, q = &d;
+  else
+    p = &b, q = &d;
+  *p = 1;
+  *q = 2;
+  if (*p == 1)
+    __builtin_abort();
+  return 0;
+}

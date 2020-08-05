@@ -1,0 +1,79 @@
+$ gcc-trunk -v
+Using built-in specs.
+COLLECT_GCC=gcc-trunk
+COLLECT_LTO_WRAPPER=/usr/local/gcc-trunk/libexec/gcc/x86_64-unknown-linux-gnu/4.9.0/lto-wrapper
+Target: x86_64-unknown-linux-gnu
+Configured with: ../gcc-trunk/configure --enable-languages=c,c++,objc,obj-c++,fortran,lto --enable-checking=release --with-gmp=/usr/local/gcc-trunk --with-mpfr=/usr/local/gcc-trunk --with-mpc=/usr/local/gcc-trunk --with-cloog=/usr/local/gcc-trunk --prefix=/usr/local/gcc-trunk
+Thread model: posix
+gcc version 4.9.0 20130925 (experimental) [trunk revision 202882] (GCC) 
+$
+$ 
+$ gcc-trunk -O3 -c small.c
+$ gcc-4.6 -O3 -g -c small.c
+$
+$ 
+$ gcc-trunk -O3 -g -c small.c
+small.c: In function ‘bar’:
+small.c:10:6: internal compiler error: Segmentation fault
+ void bar ()
+      ^
+0x8109ef crash_signal
+	../../gcc-trunk/gcc/toplev.c:335
+0x4ced0d get_use_from_ptr
+	../../gcc-trunk/gcc/tree-flow-inline.h:370
+0x4ced0d link_use_stmts_after
+	../../gcc-trunk/gcc/tree-flow-inline.h:982
+0x4ced0d first_imm_use_stmt
+	../../gcc-trunk/gcc/tree-flow-inline.h:1034
+0x95c6a0 vect_create_epilog_for_reduction
+	../../gcc-trunk/gcc/tree-vect-loop.c:4566
+0x95c6a0 vectorizable_reduction(gimple_statement_d*, gimple_stmt_iterator_d*, gimple_statement_d**, _slp_tree*)
+	../../gcc-trunk/gcc/tree-vect-loop.c:5281
+0x94f584 vect_transform_stmt(gimple_statement_d*, gimple_stmt_iterator_d*, bool*, _slp_tree*, _slp_instance*)
+	../../gcc-trunk/gcc/tree-vect-stmts.c:5988
+0x953b00 vect_transform_loop(_loop_vec_info*)
+	../../gcc-trunk/gcc/tree-vect-loop.c:5859
+0x96c457 vectorize_loops()
+	../../gcc-trunk/gcc/tree-vectorizer.c:367
+Please submit a full bug report,
+with preprocessed source if appropriate.
+Please include the complete backtrace with any bug report.
+See <http://gcc.gnu.org/bugs.html> for instructions.
+$
+$
+$ gcc-4.8 -O3 -g -c small.c
+small.c: In function ‘bar’:
+small.c:10:6: internal compiler error: Segmentation fault
+ void bar ()
+      ^
+0x7b925f crash_signal
+	../../gcc-4.8.1/gcc/toplev.c:332
+0x8e1687 get_use_from_ptr
+	../../gcc-4.8.1/gcc/tree-flow-inline.h:370
+0x8e1687 link_use_stmts_after
+	../../gcc-4.8.1/gcc/tree-flow-inline.h:982
+0x8e1687 first_imm_use_stmt
+	../../gcc-4.8.1/gcc/tree-flow-inline.h:1034
+0x8ecc18 vect_create_epilog_for_reduction
+	../../gcc-4.8.1/gcc/tree-vect-loop.c:4481
+0x8ecc18 vectorizable_reduction(gimple_statement_d*, gimple_stmt_iterator*, gimple_statement_d**, _slp_tree*)
+	../../gcc-4.8.1/gcc/tree-vect-loop.c:5196
+0x8e1154 vect_transform_stmt(gimple_statement_d*, gimple_stmt_iterator*, bool*, _slp_tree*, _slp_instance*)
+	../../gcc-4.8.1/gcc/tree-vect-stmts.c:5808
+0x8e380f vect_transform_loop(_loop_vec_info*)
+	../../gcc-4.8.1/gcc/tree-vect-loop.c:5723
+0x8faaea vectorize_loops()
+	../../gcc-4.8.1/gcc/tree-vectorizer.c:123
+Please submit a full bug report,
+with preprocessed source if appropriate.
+Please include the complete backtrace with any bug report.
+See <http://gcc.gnu.org/bugs.html> for instructions.
+$
+$ 
+$ gcc-4.7 -O3 -g -c small.c
+small.c: In function ‘bar’:
+small.c:10:6: internal compiler error: Segmentation fault
+Please submit a full bug report,
+with preprocessed source if appropriate.
+See <http://gcc.gnu.org/bugs.html> for instructions.
+$ 

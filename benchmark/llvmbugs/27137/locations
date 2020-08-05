@@ -1,0 +1,5 @@
+test trunk:264841
+fail opti level:-O2
+fixed trunk:264996
+buggy locations:
+file:llvm/trunk/lib/Analysis/ValueTracking.cpp;method:static SelectPatternResult matchSelectPattern(CmpInst::Predicate Pred,FastMathFlags FMF,Value *CmpLHS, Value *CmpRHS,Value *TrueVal, Value *FalseVal, Value *&LHS, Value *&RHS)

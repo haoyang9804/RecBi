@@ -1,0 +1,5 @@
+test trunk:258697
+fail opti level:-O1
+fixed trunk:258904
+buggy locations:
+file:/llvm/trunk/lib/Transforms/Utils/SimplifyCFG.cpp;method:matchInstruction(Instruction *I, bool isEQ)

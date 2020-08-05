@@ -1,0 +1,5 @@
+test trunk:228389
+fail opti level:-O3
+fixed trunk:228650
+buggy locations:
+file:/trunk/gcc/tree-ssa-loop-unswitch.c;method:tree_may_unswitch_on (basic_block bb, struct loop *loop)

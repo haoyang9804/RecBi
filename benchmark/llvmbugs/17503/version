@@ -1,0 +1,51 @@
+$ clang-trunk -v
+clang version 3.4 (trunk 192089)
+Target: x86_64-pc-linux-gnu
+Thread model: posix
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.4
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.4.6
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.4.7
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.6
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.6.3
+Selected GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.6
+$ 
+$ clang-trunk -O1 small.c; a.out
+-1
+$ clang-trunk -Os small.c; a.out
+0
+$ clang-3.3 -Os small.c; a.out
+0
+$ clang-3.2 -Os small.c; a.out
+-1
+$ 
+
+
+--------------------------------------
+
+
+int printf (const char *, ...);
+
+struct S
+{
+  int f0:1;
+  int:0;
+  int f1:1;
+} a; 
+
+int b;
+
+void
+bar ()
+{
+  struct S d = { 0, 1 };
+  a = d;
+  b = d.f0;
+}
+
+int
+main ()
+{
+  bar ();
+  printf ("%d\n", a.f1);
+  return 0;
+}

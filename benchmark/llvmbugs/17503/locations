@@ -1,0 +1,4 @@
+test trunk:192089
+fixed revision:194220
+buggy location
+file:llvm/trunk/lib/IR/ConstantFold.cpp;method:ConstantFoldGetElementPtrImpl(Constant *C,bool inBounds,ArrayRef<IndexTy> Idxs)

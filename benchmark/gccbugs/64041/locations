@@ -1,0 +1,5 @@
+test trunk:217971
+fail opti level:-O3
+fixed trunk:222653
+buggy locations:
+file:gcc/ipa-inline-analysis.c;method:static clause_t evaluate_conditions_for_known_args (struct cgraph_node *node, bool inline_p, vec<tree> known_vals,vec<ipa_agg_jump_function_p>known_aggs)

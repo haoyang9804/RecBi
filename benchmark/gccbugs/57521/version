@@ -1,0 +1,14 @@
+Known to fail:	4.8.1
+
+$ gcc-trunk -v
+gcc version 4.9.0 20130603 (experimental) [trunk revision 199601] (GCC) 
+$ gcc-trunk -O2 wrong.c 
+$ ./a.out 
+1
+$ gcc-4.6 -O3 wrong.c 
+$ ./a.out 
+1
+$ gcc-trunk -O3 wrong.c 
+$ ./a.out 
+0
+$

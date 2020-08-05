@@ -1,0 +1,6 @@
+test trunk:223630
+fail opti level:-O3
+fixed trunk:223759
+buggy locations:
+file:/trunk/gcc/tree-data-ref.c;method:dr_may_alias_p (const struct data_reference *a, const struct data_reference *b, bool loop_nest)
+file:/trunk/gcc/tree-data-ref.c;method:dr_analyze_indices (struct data_reference *dr, loop_p nest, loop_p loop)

@@ -1,0 +1,5 @@
+test trunk:211006
+fail opti level:-O3
+fixed trunk:212629
+buggy locations:
+file:/llvm/trunk/lib/Transforms/InstCombine/InstructionCombining.cpp;method:InstCombiner::SimplifyVectorOp(BinaryOperator &Inst)

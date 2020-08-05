@@ -1,0 +1,62 @@
+Bug:33305 
+clang version 5.0.0 (trunk 304675)
+Target: x86_64-unknown-linux-gnu
+Thread model: posix
+InstalledDir: /usr/local/clang-trunk/bin
+Found candidate GCC installation: /usr/lib/gcc/i686-linux-gnu/5
+Found candidate GCC installation: /usr/lib/gcc/i686-linux-gnu/5.4.0
+Found candidate GCC installation: /usr/lib/gcc/i686-linux-gnu/6
+Found candidate GCC installation: /usr/lib/gcc/i686-linux-gnu/6.0.0
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.4
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.4.7
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.6
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.6.4
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.7
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.7.4
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.8
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.8.5
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.9
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.9.3
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/5
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/5.4.0
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/6
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/6.0.0
+Selected GCC installation: /usr/lib/gcc/x86_64-linux-gnu/5.4.0
+Candidate multilib: .;@m64
+Candidate multilib: 32;@m32
+Candidate multilib: x32;@mx32
+Selected multilib: .;@m64
+$ 
+$ clang -Os small.c; ./a.out
+$ 
+$ clang -Os -mllvm -enable-newgvn small.c
+$ ./a.out
+Aborted (core dumped)
+$ 
+
+
+------------------------------------------
+
+
+int a, *b = &a, c, e = -1, f, g = 1, h;
+
+static void fn1 ()
+{
+  for (; c < 1; c++)
+    for (h = 0; h < 2; h++)
+      {
+    (g && h) || (e ^= !g);
+    g = 0;
+      }
+  *b = h;
+  if (e < -1)
+    *b = f;
+}
+
+int main ()
+{
+  fn1 ();
+  if (a)
+    __builtin_abort (); 
+  return 0; 
+}

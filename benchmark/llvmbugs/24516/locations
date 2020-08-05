@@ -1,0 +1,5 @@
+test trunk:245480
+fail opti level:-Os
+fixed revision:245544
+buggy location
+file:llvm/trunk/lib/Target/X86/X86ISelLowering.cpp;method:PerformSHLCombine(SDNode *N, SelectionDAG &DAG)

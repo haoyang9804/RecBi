@@ -1,0 +1,4 @@
+before revision:203314
+fixed revision:203315
+buggy locations:
+file:gcc/tree-ssa-alias.c; method:nonoverlapping_component_refs_of_decl_p (tree ref1, tree ref2)

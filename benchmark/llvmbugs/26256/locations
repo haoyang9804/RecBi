@@ -1,0 +1,5 @@
+test trunk:258416
+fail opti level:-O2
+fixed trunk:258729
+buggy locations:
+file:llvm/trunk/lib/Target/X86/X86ISelLowering.cpp;method:MachineBasicBlock *X86TargetLowering::EmitLoweredSelect(MachineInstr *MI,MachineBasicBlock *BB) const

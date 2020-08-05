@@ -1,0 +1,7 @@
+test trunk:250080
+fail opti level:-O2,-O3
+fixed trunk:251816
+buggy locations:
+file:/llvm/trunk/lib/CodeGen/SelectionDAG/DAGCombiner.cpp;method:DAGCombiner::getStoreMergeAndAliasCandidates(
+StoreSDNode* St, SmallVectorImpl<MemOpLink> &StoreNodes,SmallVectorImpl<LSBaseSDNode*> &AliasLoadNodes)
+file:/llvm/trunk/lib/CodeGen/SelectionDAG/DAGCombiner.cpp;method:DAGCombiner::MergeConsecutiveStores(StoreSDNode* St)

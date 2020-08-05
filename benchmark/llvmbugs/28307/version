@@ -1,0 +1,100 @@
+The following code is miscompiled by the clang trunk at -O3 on x86_64-linux-gnu in both the 32-bit and 64-bit modes.
+
+This is a regression from 3.8.x.  
+
+It appears different from PR 28297. 
+
+
+$ clang-trunk -v
+clang version 3.9.0 (trunk 273774)
+Target: x86_64-unknown-linux-gnu
+Thread model: posix
+InstalledDir: /usr/local/bin
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.4
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.4.7
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.6
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.6.4
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.7
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.7.3
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.8
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.8.4
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.9
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.9.3
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/5
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/5.3.0
+Selected GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.9
+Candidate multilib: .;@m64
+Candidate multilib: 32;@m32
+Candidate multilib: x32;@mx32
+Selected multilib: .;@m64
+$
+$ clang-trunk -O2 small.c; ./a.out
+4
+$ clang-3.8 -O3 small.c; ./a.out
+4
+$
+$ clang-trunk -O3 small.c
+$ ./a.out
+0
+$
+
+
+-----------------------------------------------
+
+
+int a, b, *c, e, f, g = 1, h, k, m, n, p;
+static int **d = &c, j = 1;
+short l = 1;
+
+static void
+fn1 (int p1)
+{ 
+  char t;
+  int *r;
+  unsigned s;
+  if (g)
+    { 
+      int u, **v = &c;
+      *d = &b;
+      **d = h == p1;
+      for (; p1 < 6; p1++)
+        for (t = 0; t < 5; t += 4)
+          { 
+            m = 0;
+            if (**v ? ~0 % **v : ~0)
+              { 
+                if (l)
+                  *v = &p;
+              }
+            else
+              return;
+            u = 0;
+            for (; u < 1; u++)
+              r = &b;
+            *v = r;
+            s = j ? j : a;
+            if (**v % s & 10)
+              return;
+          }
+      *c = 4;
+    }
+  n = b;
+  f = 0;
+}
+
+void
+fn2 ()
+{ 
+  fn1 (1);
+  while (k)
+    e++;
+  j = 0;
+}
+
+int
+main ()
+{ 
+  fn2 ();
+  __builtin_printf ("%d\n", b);
+  return 0;
+}

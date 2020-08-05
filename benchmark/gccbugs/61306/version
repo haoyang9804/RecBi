@@ -1,0 +1,36 @@
+The current gcc trunk miscompiles the following code on x86_64-linux at -Os and above in both 32-bit and 64-bit modes.
+
+This is a regression from 4.9.x. 
+
+$ gcc-trunk -v
+Using built-in specs.
+COLLECT_GCC=gcc-trunk
+COLLECT_LTO_WRAPPER=/usr/local/gcc-trunk/libexec/gcc/x86_64-unknown-linux-gnu/4.10.0/lto-wrapper
+Target: x86_64-unknown-linux-gnu
+Configured with: ../gcc-trunk/configure --prefix=/usr/local/gcc-trunk --enable-languages=c,c++ --disable-werror --enable-multilib
+Thread model: posix
+gcc version 4.10.0 20140524 (experimental) [trunk revision 210888] (GCC) 
+$ 
+$ gcc-trunk -O1 small.c; a.out
+$ gcc-4.9.0 -Os small.c; a.out
+$ 
+$ gcc-trunk -Os small.c
+$ a.out
+Aborted (core dumped)
+$ 
+
+---------------------------
+
+short a = -1;
+int b;
+char c;
+
+int
+main ()
+{
+  c = a;
+  b = a | c;
+  if (b != -1) 
+    __builtin_abort (); 
+  return 0;
+}

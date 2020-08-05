@@ -1,0 +1,8 @@
+test trunk:210888
+fail opti level:-Os
+fixed trunk:211444
+buggy locations:
+file:/trunk/gcc/tree-ssa-math-opts.c;method:do_shift_rotate (enum tree_code code, struct symbolic_number *n,int count)
+file:/trunk/gcc/tree-ssa-math-opts.c;method:verify_symbolic_number_p (struct symbolic_number *n, gimple stmt)
+file:/trunk/gcc/tree-ssa-math-opts.c;method:init_symbolic_number (struct symbolic_number *n, tree src)
+file:/trunk/gcc/tree-ssa-math-opts.c;method:find_bswap_or_nop_1 (gimple stmt, struct symbolic_number *n, int limit)

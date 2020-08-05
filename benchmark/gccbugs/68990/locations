@@ -1,0 +1,5 @@
+test trunk:231807
+fail opti level:-O3 -w -m32
+fixed trunk:232679
+buggy locations:
+file:trunk/gcc/lra-coalesce.c;method:bool lra_coalesce (void)

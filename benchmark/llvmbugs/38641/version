@@ -1,0 +1,29 @@
+clang-r339936: first working build
+clang-r339938: next failing build
+
+
+$ clang-trunk -v
+clang version 8.0.0 (trunk 340155)
+Target: x86_64-unknown-linux-gnu
+Thread model: posix
+InstalledDir: /usr/local/bin
+
+
+$ clang-trunk abc.c
+$ ./a.out
+$
+
+$ clang-trunk -O2 abc.c
+$ ./a.out
+0
+
+
+$ cat abc.c
+int printf(const char *, ...);
+int a = 1, b;
+static short(c)(short d, int e) { return d < 0 ? d : d >> e; }
+int main() {
+  char f = a;
+  if (c(f, 5))
+    printf("%d\n", b);
+}

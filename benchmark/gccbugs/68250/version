@@ -1,0 +1,63 @@
+The current gcc trunk miscompiles the following code on x86_64-linux-gnu at -O2 and -O3 in the 64-bit mode (but not in the 32-bit mode). 
+
+This is a regression from 5.2.x. 
+
+
+$ gcc-trunk -v
+Using built-in specs.
+COLLECT_GCC=gcc-trunk
+COLLECT_LTO_WRAPPER=/usr/local/gcc-trunk/libexec/gcc/x86_64-pc-linux-gnu/6.0.0/lto-wrapper
+Target: x86_64-pc-linux-gnu
+Configured with: ../gcc-trunk/configure --prefix=/usr/local/gcc-trunk --enable-languages=c,c++ --disable-werror --enable-multilib
+Thread model: posix
+gcc version 6.0.0 20151107 (experimental) [trunk revision 229937] (GCC) 
+$ 
+$ gcc-trunk -m64 -Os small.c; ./a.out
+1
+$ gcc-trunk -m32 -O2 small.c; ./a.out
+1
+$ gcc-5.2 -m64 -O2 small.c; ./a.out
+1
+$ 
+$ gcc-trunk -m64 -O2 small.c
+$ ./a.out
+0
+$ 
+
+
+----------------------------------------
+
+
+int printf (const char *, ...); 
+
+char a, b, h, k, l, m, o;
+short c, d, n;
+int e, f, g, j, q;
+
+void
+fn1 ()
+{
+  int p = b || a;
+  n = o > 0 || d > 1 >> o ? d : d << o;
+  for (; j; j++)
+    m = c < 0 || m || c << p;
+  l = f + 1;
+  for (; f < 1; f = 1)
+    k = h + 1;
+}
+
+int
+main ()
+{
+  char i;
+  for (; e < 1; e++)
+    {
+      fn1 ();
+      if (k)
+    i = k;
+      if (i > q)
+    g = 0;
+    }
+  printf ("%d\n", k);
+  return 0;
+}

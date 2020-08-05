@@ -1,0 +1,5 @@
+test trunk:225804
+fail opti level:-Os
+fixed trunk:225870
+buggy locations:
+file:/trunk/gcc/tree-vrp.c;method:register_edge_assert_for_2 (tree name, edge e, gimple_stmt_iterator bsi, enum tree_code cond_code,tree cond_op0, tree cond_op1, bool invert)

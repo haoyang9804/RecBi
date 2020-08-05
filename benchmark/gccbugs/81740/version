@@ -1,0 +1,37 @@
+$ gcc-trunk -v 
+Using built-in specs.
+COLLECT_GCC=gcc-trunk
+COLLECT_LTO_WRAPPER=/usr/local/gcc-trunk/libexec/gcc/x86_64-pc-linux-gnu/8.0.0/lto-wrapper
+Target: x86_64-pc-linux-gnu
+Configured with: ../gcc-source-trunk/configure --enable-languages=c,c++,lto --prefix=/usr/local/gcc-trunk --disable-bootstrap
+Thread model: posix
+gcc version 8.0.0 20170806 (experimental) [trunk revision 250895] (GCC) 
+$ 
+$ gcc-trunk -O3 small.c ; ./a.out > O3.txt
+$ gcc-trunk -O0 small.c ; ./a.out > O0.txt
+$ diff O3.txt O0.txt 
+37c37
+< 0
+---
+> 4
+
+$ cat small.c
+extern int printf(const char *, ...);
+int a[8][10];
+short b;
+int c, i, d;
+int main() {
+  a[2][5] = b = 4;
+  for (; b; b--) {
+    c = 0;
+    for (; c <= 6; c++)
+      a[c + 1][b + 2] = a[c][b + 1];
+  }
+  for (; i < 8; i++) {
+    d = 0;
+    for (; d < 10; d++)
+      printf("%d\n", a[i][d]);
+  }
+  return 0;
+}
+$

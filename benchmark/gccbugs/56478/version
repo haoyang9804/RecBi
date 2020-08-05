@@ -1,0 +1,35 @@
+
+$ gcc-trunk --version
+gcc-trunk (GCC) 4.8.0 20130227 (experimental) [trunk revision 196310]
+$ cat crash2.c 
+/* gcc-trunk -O2+ */
+int a;
+void fn1 ()
+{
+    int b;
+    b = 0;
+    for (;; b++)
+        a = 0 < -9223372036854775807LL - 1 - b ? : 0;
+}
+$ gcc-trunk -O -c crash2.c 
+$ gcc-4.7 -O2 -c crash2.c
+$ gcc-trunk -O2 -c crash2.c
+crash2.c: In function ¡®fn1¡¯:
+crash2.c:9:1: internal compiler error: Floating point exception
+ }
+ ^
+0x7a32df crash_signal
+	../../gcc-trunk/gcc/toplev.c:332
+0x7274ce predict_iv_comparison
+	../../gcc-trunk/gcc/predict.c:1231
+0x7274ce predict_loops
+	../../gcc-trunk/gcc/predict.c:1552
+0x7274ce tree_estimate_probability()
+	../../gcc-trunk/gcc/predict.c:2276
+0x7277c0 tree_estimate_probability_driver
+	../../gcc-trunk/gcc/predict.c:2313
+Please submit a full bug report,
+with preprocessed source if appropriate.
+Please include the complete backtrace with any bug report.
+See <http://gcc.gnu.org/bugs.html> for instructions.
+$

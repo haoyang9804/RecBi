@@ -1,0 +1,4 @@
+before revision:205671
+fixed revision:205672
+buggy locations:
+file:gcc/combine.c; method:force_to_mode (rtx x, enum machine_mode mode, unsigned HOST_WIDE_INT mask, int just_select)

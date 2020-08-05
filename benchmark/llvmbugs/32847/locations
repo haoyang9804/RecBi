@@ -1,0 +1,5 @@
+test trunk:301611
+fail opti level:-Os
+fixed trunk:301849
+buggy locations:
+file:/llvm/trunk/lib/Transforms/Scalar/NewGVN.cpp;method:NewGVN::performSymbolicCmpEvaluation(Instruction *I)

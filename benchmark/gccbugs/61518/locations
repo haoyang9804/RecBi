@@ -1,0 +1,5 @@
+test trunk:211685
+fail opti level:-O3
+fixed trunk:211780
+buggy locations:
+file:/trunk/gcc/tree-if-conv.c;method:is_cond_scalar_reduction (gimple phi, gimple *reduc, tree *op0, tree *op1)

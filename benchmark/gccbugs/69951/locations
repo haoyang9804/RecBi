@@ -1,0 +1,5 @@
+test trunk:233678
+fail opti level:-O1
+fixed trunk:233734
+buggy locations:
+file:trunk/gcc/tree-ssa-structalias.c;method:static void get_constraint_for_ssa_var (tree t, vec<ce_s> *results, bool address_p)

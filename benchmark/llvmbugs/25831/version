@@ -1,0 +1,75 @@
+The following code is miscompiled by the current clang trunk at -O1 and above in both 32-bit and 64-bit modes on x86_64-linux-gnu.
+
+This is a regression from 3.7. 
+
+$: clang-trunk -v
+clang version 3.8.0 (trunk 255518)
+Target: x86_64-unknown-linux-gnu
+Thread model: posix
+InstalledDir: /usr/local/bin
+Found candidate GCC installation: /usr/lib/gcc/i686-linux-gnu/4.9
+Found candidate GCC installation: /usr/lib/gcc/i686-linux-gnu/4.9.3
+Found candidate GCC installation: /usr/lib/gcc/i686-linux-gnu/5.2.1
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.4
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.4.7
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.6
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.6.4
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.7
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.7.3
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.8
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.8.4
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.9
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.9.3
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/5.2.1
+Found candidate GCC installation: /usr/local/bin/../lib/gcc/x86_64-unknown-linux-gnu/4.6.3
+Found candidate GCC installation: /usr/local/bin/../lib/gcc/x86_64-unknown-linux-gnu/4.7.4
+Found candidate GCC installation: /usr/local/bin/../lib/gcc/x86_64-unknown-linux-gnu/4.8.2
+Selected GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.9
+Candidate multilib: .;@m64
+Candidate multilib: 32;@m32
+Candidate multilib: x32;@mx32
+Selected multilib: .;@m64
+$: 
+$: clang-trunk -O1 -w small.c ; ./a.out
+l_282=0
+g_9=6
+-1
+$: clang-trunk -O2 -w small.c ; ./a.out
+l_282=0
+g_9=6
+-1
+$: clang-trunk -O3 -w small.c ; ./a.out
+l_282=0
+g_9=6
+-1
+$: clang-trunk -O0 -w small.c ; ./a.out
+l_282=0
+g_9=6
+0
+$: clang-3.7 -O3 -w small.c ; ./a.out
+l_282=0
+g_9=6
+0
+$: 
+$: cat small.c
+static short a = 7;
+int b = 1, c, d, e, f;
+void fn1(short *p1) {
+  b = 4 % a & a / b;
+  d = f && 1 / d;
+  a = f | a ^ 1;
+  if (a || a)
+    printf("l_282=%lld\n", (long long)f);
+  printf("g_9=%lld\n", (long long)a);
+  d = a;
+  *p1 = e;
+  if (a && f < 4)
+    c--;
+}
+
+int main() {
+  fn1(&a);
+  printf("%d\n", c);
+  return 0;
+}
+$:

@@ -1,0 +1,59 @@
+
+$ clang-trunk -v
+clang version 3.7.0 (trunk 229360)
+Target: x86_64-unknown-linux-gnu
+Thread model: posix
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.6
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.6.4
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.7
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.7.3
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.8
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.8.2
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.9
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.9.2
+Selected GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.9
+Candidate multilib: .;@m64
+Candidate multilib: 32;@m32
+Candidate multilib: x32;@mx32
+Selected multilib: .;@m64
+$ 
+$ clang-trunk -Os small.c; ./a.out
+$ clang-3.5.0 -O2 small.c; ./a.out
+$ 
+$ clang-trunk -O2 small.c
+$ ./a.out
+Aborted (core dumped)
+$ 
+
+
+-------------------------------
+
+
+int a, b, c, d, e;
+char f[1][3];
+
+void
+fn1 ()
+{
+  for (d = 0; d < 2; d++)
+    {
+      f[b][d] = 0;
+      for (e = 0; e < 3; e++)
+	{
+	  if (c)
+	    a--;
+	  f[0][e] = 1;
+	}
+    }
+}
+
+int
+main ()
+{
+  fn1 ();
+
+  if (f[0][1] != 1)
+    __builtin_abort ();
+
+  return 0;
+}

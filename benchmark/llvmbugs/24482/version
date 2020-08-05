@@ -1,0 +1,68 @@
+The following code is miscompiled by the current clang trunk on x86_64-linux-gnu at -Os and above in both 32-bit and 64-bit modes.
+
+This is a regression from 3.6.x. 
+
+$ clang-trunk -v
+clang version 3.8.0 (trunk 245195)
+Target: x86_64-unknown-linux-gnu
+Thread model: posix
+InstalledDir: /usr/local/bin
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.6
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.6.4
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.7
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.7.3
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.8
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.8.4
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.9
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.9.2
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/5.1.0
+Selected GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.9
+Candidate multilib: .;@m64
+Candidate multilib: 32;@m32
+Candidate multilib: x32;@mx32
+Selected multilib: .;@m64
+$ 
+$ clang-trunk -O1 small.c; ./a.out
+$ clang-3.6 -Os small.c; ./a.out
+$ 
+$ clang-trunk -Os small.c
+$ ./a.out
+Aborted (core dumped)
+$ 
+
+
+------------------------------
+
+
+struct S1
+{
+  int f0;
+  int f1;
+  int f2;
+} a, b;
+
+int c = 1;
+
+int
+fn1 ()
+{
+  if (!c)
+    return 0;
+  b = a;
+  return 0;
+}
+
+int
+main ()
+{
+  struct S1 d = { 0, 1, 0};
+  a = d;
+  a.f0 = d.f2;
+  fn1 ();
+  a = d;
+
+  if (b.f1 != 1) 
+    __builtin_abort (); 
+
+  return 0;
+}

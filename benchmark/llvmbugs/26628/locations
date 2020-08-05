@@ -1,0 +1,5 @@
+test trunk:260876
+fail opti level:-O1
+fixed trunk:260981
+buggy locations:
+file:llvm/trunk/lib/Analysis/LazyValueInfo.cpp;method:bool LazyValueInfoCache::solveBlockValue(Value *Val, BasicBlock *BB)

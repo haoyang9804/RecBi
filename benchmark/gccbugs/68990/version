@@ -1,0 +1,57 @@
+The following code is miscompiled by the gcc trunk at -O3 in 32-bit mode on 
+x86_64-pc-linux-gnu.
+
+$: gcc-trunk -v 
+Using built-in specs.
+COLLECT_GCC=gcc-trunk
+COLLECT_LTO_WRAPPER=/usr/local/gcc-trunk/libexec/gcc/x86_64-pc-linux-gnu/6.0.0/lto-wrapper
+Target: x86_64-pc-linux-gnu
+Configured with: ../gcc-trunk/configure --prefix=/usr/local/gcc-trunk --enable-languages=c,c++ --disable-werror --enable-multilib
+Thread model: posix
+gcc version 6.0.0 20151218 (experimental) [trunk revision 231807] (GCC) 
+$:
+$: gcc-trunk -m32 small.c -w -O3 ; ./a.out
+$: gcc-trunk -m32 small.c -w -O2 ; ./a.out
+g_95=0
+$: gcc-trunk -m32 small.c -w -O0 ; ./a.out
+g_95=0
+$: 
+$: cat small.c
+short a;
+int b = 1, f;
+char c, e = 1;
+long long d;
+static short fn1() {
+    unsigned g, h = 0;
+    int i = 0 || d * (b | e);
+    char j = a << i, l = a;
+    short k;
+    int m = -b;
+    if (m < b) {
+        k = m = b;
+        g = (k || l) / (b / e);
+        if (b)
+            printf("g_95=%lld\n", (long long)a);
+    }
+    a = b = m;
+    if (j || e) {
+        h = g;
+        i = m;
+        g = j * k / (i - d);
+        if (m)
+            b = j && b;
+        e = b * (h & d) || g;
+    }
+    b = i;
+    char n = e || h | d;
+    e = i < d & k / n;
+    return f;
+}
+
+int main() {
+    if (fn1())
+        if (c)
+lbl_2043:
+            goto lbl_2043;
+    return 0;
+}

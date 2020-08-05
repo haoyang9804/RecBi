@@ -1,0 +1,29 @@
+$ clang -v
+clang version 3.3 (trunk 181189)
+Target: x86_64-pc-linux-gnu
+Thread model: posix
+$ clang -O2 test.c
+$ ./a.out
+1
+$ clang -O3 test.c
+$ ./a.out
+2130055448
+$
+
+---------------------------
+int printf(const char *, ...);
+signed char c, d;
+int i;
+int
+main ()
+{
+    for (c = 0; c > -16; --c)
+    {
+        int *j = &i;
+        *j = 1;
+        for (d = 0; d; d = d + 0)
+            *j = 0;
+    }
+    printf ("%d\n", i);
+    return 0;
+}

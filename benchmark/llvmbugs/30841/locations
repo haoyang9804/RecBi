@@ -1,0 +1,5 @@
+test trunk:285516
+fail opti level:-O1
+fixed trunk:285656
+buggy locations:
+file:/llvm/trunk/lib/CodeGen/SelectionDAG/TargetLowering.cpp; method:TargetLowering::SimplifyDemandedBits(SDValue Op, const APInt &DemandedMask, APInt &KnownZero, APInt &KnownOne, TargetLoweringOpt &TLO, unsigned Depth, bool AssumeSingleUse) const

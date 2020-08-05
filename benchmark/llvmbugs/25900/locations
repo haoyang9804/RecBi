@@ -1,0 +1,5 @@
+test trunk:256098
+fail opti level:-O1 -w
+fixed trunk:256655
+buggy locations:
+file:llvm/trunk/lib/Analysis/ValueTracking.cpp;method:static bool isKnownToBeAPowerOfTwo(Value *V, bool OrZero, unsigned Depth,const Query &Q, const DataLayout &DL)

@@ -1,0 +1,5 @@
+before revision:210846
+fixed revision:210847
+buggy locations:
+file:gcc/tree-vect-data-refs.c; method:vect_analyze_data_ref_access (struct data_reference *dr)
+file:gcc/tree-vect-loop.c; method:vect_create_epilog_for_reduction (VEC (tree, heap) *vect_defs, gimple stmt,int ncopies, enum tree_code reduc_code, VEC (gimple, heap) *reduction_phis, int reduc_index, bool double_reduc, slp_tree slp_node)

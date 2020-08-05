@@ -1,0 +1,5 @@
+test trunk:238951
+fail opti level:-Os
+fixed revision:239171
+buggy location
+file:llvm/trunk/lib/Transforms/InstCombine/InstCombineCompares.cpp;method:InstCombiner::OptimizeOverflowCheck(OverflowCheckFlavor OCF, Value *LHS,Value *RHS, Instruction &OrigI,Value *&Result, Constant *&Overflow)

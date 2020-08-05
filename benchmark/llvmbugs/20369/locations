@@ -1,0 +1,6 @@
+test trunk:213431
+fail opti level:-O3
+fixed trunk:213497
+buggy locations:
+file:/llvm/trunk/lib/Transforms/Scalar/MergedLoadStoreMotion.cpp;method:MergedLoadStoreMotion::isLoadHoistBarrier(Instruction *Inst)
+file:/llvm/trunk/lib/Transforms/Scalar/MergedLoadStoreMotion.cpp;method:MergedLoadStoreMotion::isStoreSinkBarrier(Instruction *Inst)

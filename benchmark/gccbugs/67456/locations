@@ -1,0 +1,5 @@
+test trunk:227491
+fail opti level:-O2;-O3
+fixed trunk:228194
+buggy locations:
+file: /trunk/gcc/ifcvt.c;method:noce_try_cmove_arith (struct noce_if_info *if_info)

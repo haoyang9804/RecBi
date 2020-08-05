@@ -1,0 +1,16 @@
+Known to fail:	4.7.3, 4.8.0
+$ gcc-trunk -v
+Target: x86_64-unknown-linux-gnu
+Configured with: ../gcc-trunk/configure --enable-languages=c,c++,objc,obj-c++,fortran,lto --disable-checking --with-gmp=/usr/local/gcc-trunk --with-mpfr=/usr/local/gcc-trunk --with-mpc=/usr/local/gcc-trunk --with-cloog=/usr/local/gcc-trunk --prefix=/usr/local/gcc-trunk
+Thread model: posix
+gcc version 4.9.0 20130516 (experimental) [trunk revision 198967] (GCC) 
+$ gcc-trunk -O0 small.c
+$ ./a.out 
+0
+$ gcc-4.6 -O1 small.c
+$ ./a.out 
+0
+$ gcc-trunk -O1 small.c
+$ ./a.out 
+1
+$

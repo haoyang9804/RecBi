@@ -1,0 +1,5 @@
+test trunk:228291
+fail opti level:-O2;-O3
+fixed trunk:228375
+buggy locations:
+file:/trunk/gcc/ifcvt.c;method:bb_valid_for_noce_process_p (basic_block test_bb, rtx cond, unsigned int *cost, bool *simple_p)

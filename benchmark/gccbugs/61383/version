@@ -1,0 +1,56 @@
+The current gcc trunk (as well as gcc 4.8 and 4.9) miscompiles the following code on x86_64-linux at -O2 and -O3 in both 32-bit and 64-bit modes.
+
+This is a regression from 4.7.x. 
+
+$ gcc-trunk -v
+Using built-in specs.
+COLLECT_GCC=gcc-trunk
+COLLECT_LTO_WRAPPER=/usr/local/gcc-trunk/libexec/gcc/x86_64-unknown-linux-gnu/4.10.0/lto-wrapper
+Target: x86_64-unknown-linux-gnu
+Configured with: ../gcc-trunk/configure --prefix=/usr/local/gcc-trunk --enable-languages=c,c++ --disable-werror --enable-multilib
+Thread model: posix
+gcc version 4.10.0 20140601 (experimental) [trunk revision 211110] (GCC) 
+$ 
+$ gcc-trunk -Os small.c; a.out
+$ gcc-4.7.3 -O2 small.c; a.out
+$ 
+$ gcc-trunk -O2 small.c; a.out
+Floating point exception (core dumped)
+$ gcc-4.8.2 -O2 small.c; a.out
+Floating point exception (core dumped)
+$ 
+
+
+------------------------------
+
+
+int a, b = 1, c, d, e, f, g;
+
+int
+fn1 ()
+{
+  int h;
+  for (;;)
+    {
+      g = b;
+      g = g ? 0 : 1 % g;
+      e = a + 1;
+      for (; d < 1; d = e)
+	{
+	  h = f == 0 ? 0 : 1 % f;
+	  if (f < 1)
+	    c = 0;
+	  else if (h)
+	    break;
+	}
+      if (b)
+	return 0;
+    }
+}
+
+int
+main ()
+{
+  fn1 ();
+  return 0;
+}

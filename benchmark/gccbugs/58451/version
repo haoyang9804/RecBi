@@ -1,0 +1,34 @@
+$ gcc-trunk -v
+Using built-in specs.
+COLLECT_GCC=gcc-trunk
+COLLECT_LTO_WRAPPER=/usr/local/gcc-trunk/libexec/gcc/x86_64-unknown-linux-gnu/4.9.0/lto-wrapper
+Target: x86_64-unknown-linux-gnu
+Configured with: ../gcc-trunk/configure --enable-languages=c,c++,objc,obj-c++,fortran,lto --with-gmp=/usr/local/gcc-trunk --with-mpfr=/usr/local/gcc-trunk --with-mpc=/usr/local/gcc-trunk --with-cloog=/usr/local/gcc-trunk --prefix=/usr/local/gcc-trunk
+Thread model: posix
+gcc version 4.9.0 20130917 (experimental) [trunk revision 202643] (GCC) 
+$ gcc-trunk -O2 -c small.c
+$ gcc-4.8 -O3 -c small.c
+$ gcc-trunk -O3 -c small.c
+small.c: In function ‘foo’:
+small.c:3:6: internal compiler error: Segmentation fault
+ void foo ()
+      ^
+0x9249bf crash_signal
+        ../../gcc-trunk/gcc/toplev.c:335
+0xa2719d find_uses_to_rename_use
+        ../../gcc-trunk/gcc/tree-ssa-loop-manip.c:369
+0xa273d6 find_uses_to_rename_bb
+        ../../gcc-trunk/gcc/tree-ssa-loop-manip.c:427
+0xa27b6d find_uses_to_rename
+        ../../gcc-trunk/gcc/tree-ssa-loop-manip.c:451
+0xa27b6d rewrite_into_loop_closed_ssa(bitmap_head_def*, unsigned int)
+        ../../gcc-trunk/gcc/tree-ssa-loop-manip.c:513
+0x995070 tree_loop_distribution
+        ../../gcc-trunk/gcc/tree-loop-distribution.c:1738
+0x995070 execute
+        ../../gcc-trunk/gcc/tree-loop-distribution.c:1781
+Please submit a full bug report,
+with preprocessed source if appropriate.
+Please include the complete backtrace with any bug report.
+See <http://gcc.gnu.org/bugs.html> for instructions.
+$ 

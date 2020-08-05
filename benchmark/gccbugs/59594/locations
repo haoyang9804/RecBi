@@ -1,0 +1,5 @@
+test trunk:206194
+fail opti level:-O3
+fixed trunk:207225
+buggy locations:
+file:trunk/gcc/tree-vect-data-refs.c;method:bool vect_analyze_data_ref_accesses (loop_vec_info loop_vinfo, bb_vec_info bb_vinfo)

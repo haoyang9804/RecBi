@@ -1,0 +1,6 @@
+test trunk:275702
+fail opti level:-O1
+fixed trunk:276008
+buggy locations:
+file:/llvm/trunk/lib/Transforms/IPO/FunctionAttrs.cpp;method:PostOrderFunctionAttrsPass::run(LazyCallGraph::SCC &C,CGSCCAnalysisManager &AM)
+file:/llvm/trunk/lib/Transforms/IPO/FunctionAttrs.cpp;method:runImpl(CallGraphSCC &SCC, AARGetterT AARGetter)

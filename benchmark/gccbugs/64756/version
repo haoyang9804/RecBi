@@ -1,0 +1,58 @@
+The current gcc trunk miscompiles the following code on x86_64-linux at -O3 in the 32-bit mode (but not in 64-bit mode). 
+
+This is a regression from 4.9.x. 
+
+It is quite strange that the bug seems to be sensitive to the name of the variable "tmp" --- changing the variable to "b" for example will mask it. 
+
+$ gcc-trunk -v
+Using built-in specs.
+COLLECT_GCC=gcc-trunk
+COLLECT_LTO_WRAPPER=/usr/local/gcc-trunk/libexec/gcc/x86_64-unknown-linux-gnu/5.0.0/lto-wrapper
+Target: x86_64-unknown-linux-gnu
+Configured with: ../gcc-trunk/configure --prefix=/usr/local/gcc-trunk --enable-languages=c,c++ --disable-werror --enable-multilib
+Thread model: posix
+gcc version 5.0.0 20150122 (experimental) [trunk revision 220011] (GCC) 
+
+$ 
+$ gcc-trunk -m32 -O2 small.c; a.out
+$ gcc-trunk -m64 -O3 small.c; a.out
+$ gcc-4.9 -m32 -O3 small.c; a.out
+$ 
+$ gcc-trunk -m32 -O3 small.c 
+$ ./a.out
+Aborted (core dumped)
+$ 
+
+
+---------------------------------
+
+
+
+int a, *tmp, **c = &tmp;
+volatile int d;
+static int *volatile *e = &tmp;
+unsigned int f; 
+
+static void
+fn1 (int *p)
+{
+  int g;
+  for (; f < 1; f++)
+    for (g = 1; g >= 0; g--)
+      {
+	d || d;
+	*c = p;
+
+	if (tmp != &a)
+	  __builtin_abort (); 
+
+	*e = 0;
+      }
+}
+
+int
+main ()
+{
+  fn1 (&a);
+  return 0;
+}

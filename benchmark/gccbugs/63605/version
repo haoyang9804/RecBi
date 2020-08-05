@@ -1,0 +1,44 @@
+The current gcc trunk (as well as 4.8.x and 4.9.x) miscompiles the following code on x86_64-linux at -O3 in both 32-bit and 64-bit modes.  
+
+This is a regression from 4.7.x. 
+
+The miscompilation seems to be caused by the tree vectorizer as -fno-tree-vectorize makes it disappear. 
+
+$ gcc-trunk -v
+Using built-in specs.
+COLLECT_GCC=gcc-trunk
+COLLECT_LTO_WRAPPER=/usr/local/gcc-trunk/libexec/gcc/x86_64-unknown-linux-gnu/5.0.0/lto-wrapper
+Target: x86_64-unknown-linux-gnu
+Configured with: ../gcc-trunk/configure --prefix=/usr/local/gcc-trunk --enable-languages=c,c++ --disable-werror --enable-multilib
+Thread model: posix
+gcc version 5.0.0 20141018 (experimental) [trunk revision 216429] (GCC) 
+
+$ gcc-trunk -O2 small.c; a.out
+1
+$ gcc-4.7 -O3 small.c; a.out
+1
+$ 
+$ gcc-trunk -O3 small.c; a.out
+0
+$ 
+
+
+--------------------------------
+
+
+int printf (const char *, ...);
+
+int a, b[8] = { 2, 0, 0, 0, 0, 0, 0, 0 }, c[8];
+
+int
+main ()
+{
+  int d;
+  for (; a < 8; a++)
+    {
+      d = b[a] >> 1;
+      c[a] = d != 0;
+    }
+  printf ("%d\n", c[0]);
+  return 0;
+}

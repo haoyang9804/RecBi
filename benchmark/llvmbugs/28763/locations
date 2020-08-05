@@ -1,0 +1,5 @@
+test trunk:276903
+fail opti level:-Os
+fixed trunk:277114
+buggy locations:
+file:/llvm/trunk/lib/Transforms/Scalar/EarlyCSE.cpp;method:EarlyCSE::processNode(DomTreeNode *Node) 

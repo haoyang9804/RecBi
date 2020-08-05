@@ -1,0 +1,5 @@
+test trunk:311896
+fail opti level:-O1
+fixed trunk:311902
+buggy locations:
+file:/llvm/trunk/lib/Transforms/InstCombine/InstCombineSimplifyDemanded.cpp;method:InstCombiner::SimplifyDemandedUseBits(Value *V, APInt DemandedMask, KnownBits &Known, unsigned Depth, Instruction *CxtI)

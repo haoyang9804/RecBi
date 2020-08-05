@@ -1,0 +1,6 @@
+test trunk:220198
+fail opti level:-Os
+fixed trunk:220247
+buggy locations:
+file:/trunk/gcc/tree-ssa-ccp.c;method:valueize_op_1 (tree op)
+file:/trunk/gcc/tree-vrp.c;method: vrp_valueize_1 (tree name)

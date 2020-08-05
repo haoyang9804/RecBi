@@ -1,0 +1,5 @@
+test trunk:190991
+fixed revision:209854
+file:llvm/trunk/lib/Transforms/Vectorize/LoopVectorize.cpp;method:InnerLoopVectorizer::createEmptyLoop()
+file:llvm/trunk/lib/Transforms/Vectorize/LoopVectorize.cpp;method:InnerLoopVectorizer::vectorizeLoop()
+file:llvm/trunk/lib/Transforms/Vectorize/LoopVectorize.cpp;method:InnerLoopVectorizer::updateAnalysis()

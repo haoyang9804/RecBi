@@ -1,0 +1,4 @@
+test trunk:185306
+fixed revision:186256
+buggy locations
+file:llvm/trunk/lib/Transforms/Vectorize/LoopVectorize.cpp;method:LoopVectorizationLegality::AddReductionVar(PHINode *Phi,ReductionKind Kind)

@@ -1,0 +1,4 @@
+test trunk:191183
+fixed revision:191337
+buggy location
+file:llvm/trunk/lib/CodeGen/SelectionDAG/TargetLowering.cpp;method:TargetLowering::SimplifySetCC(EVT VT, SDValue N0, SDValue N1,ISD::CondCode Cond, bool foldBooleans,DAGCombinerInfo &DCI, SDLoc dl) const

@@ -1,0 +1,6 @@
+before revision:202095
+fixed revision:202096
+buggy locations:
+file:gcc/tree-loop-distribution.c; method:has_anti_dependence (struct vertex *v)
+file:gcc/tree-loop-distribution.c; method:mark_nodes_having_upstream_mem_writes (struct graph *rdg)
+file:gcc/tree-loop-distribution.c; method:rdg_flag_uses (struct graph *rdg, int u, partition_t partition, bitmap loops, bitmap processed)

@@ -1,0 +1,6 @@
+test trunk:206472
+fail opti level:-Os -m64
+fixed revision:206638
+buggy locations
+file:gcc/ree.c;method:combine_set_extension (ext_cand *cand, rtx curr_insn, rtx *orig_set)
+file:gcc/ree.c;method:find_and_remove_re (void)

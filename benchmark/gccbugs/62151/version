@@ -1,0 +1,65 @@
+The current gcc trunk miscompiles the following code on x86_64-linux-gnu at -O2 and -O3 in both 32-bit and 64-bit modes.
+
+This is a regression from 4.9.x. 
+
+$ gcc-trunk -v
+Using built-in specs.
+COLLECT_GCC=gcc-trunk
+COLLECT_LTO_WRAPPER=/usr/local/gcc-trunk/libexec/gcc/x86_64-unknown-linux-gnu/4.10.0/lto-wrapper
+Target: x86_64-unknown-linux-gnu
+Configured with: ../gcc-trunk/configure --prefix=/usr/local/gcc-trunk --enable-languages=c,c++ --disable-werror --enable-multilib
+Thread model: posix
+gcc version 4.10.0 20140814 (experimental) [trunk revision 213937] (GCC) 
+$ 
+$ gcc-trunk -Os small.c; a.out
+$ gcc-4.9 -O2 small.c; a.out
+$     
+$ gcc-trunk -O2 small.c; a.out
+Aborted (core dumped)
+$ gcc-trunk -O3 small.c; a.out
+Aborted (core dumped)
+$ 
+
+
+----------------------------
+
+
+int a, c, d, e, f, g, h, i;
+short b;
+
+int
+fn1 ()
+{
+  b = 0;
+  for (;;)
+    {
+      int j[2];
+      j[f] = 0;
+      if (h)
+	d = 0;
+      else
+	{
+	  for (; f; f++)
+	    ;
+	  for (a = 0; a < 1; a++)
+	    for (;;)
+	      {
+		i = b & ((b ^ 1) & 83647) ? b : b - 1;
+		g = 1 ? i : 0;
+		e = j[0];
+		if (c)
+		  break;
+		return 0;
+	      }
+	}
+    }
+}
+
+int
+main ()
+{
+  fn1 ();
+  if (g != -1) 
+    __builtin_abort (); 
+  return 0;
+}

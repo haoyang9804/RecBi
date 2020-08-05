@@ -1,0 +1,4 @@
+test trunk:181189
+fixed revision:183035
+buggy locations
+file:llvm/trunk/lib/Transforms/Vectorize/LoopVectorize.cpp;method:LoopVectorizationLegality::canVectorizeInstrs()

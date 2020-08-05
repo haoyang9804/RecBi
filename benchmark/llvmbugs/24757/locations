@@ -1,0 +1,5 @@
+test trunk:247047
+fail opti level:-Os
+fixed revision:247242
+buggy location
+file:llvm/trunk/lib/Analysis/ScalarEvolution.cpp;method:ScalarEvolution::HowFarToZero(const SCEV *V, const Loop *L, bool ControlsExit)

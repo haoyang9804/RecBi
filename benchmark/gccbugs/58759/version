@@ -1,0 +1,62 @@
+The current gcc trunk miscompiles the following code on x86_64-linux at -O2 in 32-bit mode. 
+
+This is a regression from 4.8.x. 
+
+
+$ gcc-trunk -v
+Using built-in specs.
+COLLECT_GCC=gcc-trunk
+COLLECT_LTO_WRAPPER=/usr/local/gcc-trunk/libexec/gcc/x86_64-unknown-linux-gnu/4.9.0/lto-wrapper
+Target: x86_64-unknown-linux-gnu
+Configured with: ../gcc-trunk/configure --enable-languages=c,c++,objc,obj-c++,fortran,lto --disable-werror --enable-checking=release --with-gmp=/usr/local/gcc-trunk --with-mpfr=/usr/local/gcc-trunk --with-mpc=/usr/local/gcc-trunk --with-cloog=/usr/local/gcc-trunk --prefix=/usr/local/gcc-trunk
+Thread model: posix
+gcc version 4.9.0 20131016 (experimental) [trunk revision 203716] (GCC) 
+$ 
+$ gcc-trunk -m32 -Os small.c; a.out
+$ gcc-trunk -m32 -O3 small.c; a.out
+$ gcc-trunk -m64 -O2 small.c; a.out
+$ 
+$ gcc-trunk -m32 -O2 small.c; a.out
+Segmentation fault (core dumped)
+$ 
+$ gcc-4.8 -m32 -O2 small.c; a.out
+$ 
+
+
+-------------------------------------------
+
+
+int a, b, c, d, e, f, h, l, m, n, k, o;
+long long g;
+
+struct S
+{
+  int f1;
+  int f2;
+  int f3;
+  int f4;
+};
+
+static struct S i = {0,0,0,0}, j;
+
+void
+foo ()
+{
+  m = 1 & d;
+  n = b + c;
+  o = k >> 1;
+  f = 0 == e;
+}
+
+int
+main ()
+{
+  for (; h < 1; h++)
+    {
+      g = 1 | (0 > 1 - a ? 0 : a);
+      foo ();
+      for (l = 0; l < 3; l++)
+    j = i;
+    }
+  return 0;
+}

@@ -1,0 +1,106 @@
+This is a regression from 3.8.x. 
+
+
+$ clang -v
+clang version 4.0.0 (trunk 277497)
+Target: x86_64-unknown-linux-gnu
+Thread model: posix
+InstalledDir: /usr/local/clang-trunk/bin
+Found candidate GCC installation: /usr/lib/gcc/i686-linux-gnu/4.9
+Found candidate GCC installation: /usr/lib/gcc/i686-linux-gnu/4.9.3
+Found candidate GCC installation: /usr/lib/gcc/i686-linux-gnu/5
+Found candidate GCC installation: /usr/lib/gcc/i686-linux-gnu/5.3.0
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.4
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.4.7
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.6
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.6.4
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.7
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.7.3
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.8
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.8.5
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.9
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.9.3
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/5
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/5.3.0
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/6
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/6.1.1
+Selected GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.9
+Candidate multilib: .;@m64
+Candidate multilib: 32;@m32
+Candidate multilib: x32;@mx32
+Selected multilib: .;@m64
+$
+$ clang -m32 -O2 -w small.c; ./a.out
+$ clang-3.8 -m32 -O3 -w small.c; ./a.out
+$
+$ clang -m32 -O3 -w small.c
+$ ./a.out
+Segmentation fault (core dumped)
+$
+
+
+--------------------------------------------------------------------
+
+
+struct
+{ 
+  int f0;
+} a = {1}, b;
+
+volatile int c;
+int d, e, f, g, h, i, j, k, l, m[1], n, o, p, q, r[1], s, t, u;
+
+void fn1 (int p1)
+{ 
+  n = n >> 8 ^ m[n ^ p1];
+}
+
+void fn2 ()
+{ 
+  fn1 (l > 0);
+  fn1 (l >> 8);
+  fn1 (l & 5);
+  n = n >> 8 ^ n;
+}
+
+static void fn3 (int p1, int p2, int p3, short p4)
+{ 
+  q = q && (p1 = p4);
+  for (; o; o++)
+    { 
+      h = e ? 0 : s;
+      g = j;
+      s = p2 | (p3 == (f < h)) | j;
+      if (p1)
+        c;
+    }
+}
+
+int fn4 ()
+{ 
+  short v, x = i;
+  fn2 ();
+  v = x >> d;
+  fn3 (2, 5, v, i);
+  fn3 (4, 0, 0, p);
+  if (v < 1)
+    return t;
+  a = b;
+  return 0;
+}
+
+int fn5 ()
+{ 
+  for (; i < 2; i++)
+    fn4 ();
+  if (!a.f0)
+    return u;
+  k = r[2000];
+  return 0;
+}
+
+int main ()
+{ 
+  fn5 ();
+  return 0;
+}

@@ -1,0 +1,56 @@
+The current gcc trunk miscompiles the following code on x86_64-linux at -O3 in both 32-bit and 64-bit modes.  
+
+It also affects gcc 5.1.x and 4.9.2 (but not 4.9.0 and I didn't check 4.9.1). 
+
+
+$ gcc-trunk -v
+Using built-in specs.
+COLLECT_GCC=gcc-trunk
+COLLECT_LTO_WRAPPER=/usr/local/gcc-trunk/libexec/gcc/x86_64-unknown-linux-gnu/6.0.0/lto-wrapper
+Target: x86_64-unknown-linux-gnu
+Configured with: ../gcc-trunk/configure --prefix=/usr/local/gcc-trunk --enable-languages=c,c++ --disable-werror --enable-multilib
+Thread model: posix
+gcc version 6.0.0 20150524 (experimental) [trunk revision 223630] (GCC) 
+$ 
+$ gcc-trunk -O2 small.c; ./a.out
+$ gcc-4.9.0 -O3 small.c; ./a.out
+$ 
+$ gcc-trunk -O3 small.c  
+$ ./a.out
+Aborted (core dumped)
+$ gcc-4.9.2 -O3 small.c
+$ ./a.out
+Aborted (core dumped)
+$ gcc-5.1.0 -O3 small.c
+$ ./a.out
+Aborted (core dumped)
+$ 
+
+
+----------------------------
+
+
+struct S
+{
+  int f0;
+  int f1;
+} a[2], c;
+
+int b;
+
+int
+main ()
+{
+  struct S d = { 0, 1 };
+
+  for (b = 0; b < 2; b++)
+    {
+      a[b] = d;
+      c = d = a[0];
+    }
+
+  if (c.f1 != 1)
+    __builtin_abort ();
+
+  return 0;
+}

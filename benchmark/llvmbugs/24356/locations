@@ -1,0 +1,5 @@
+test trunk:243961
+fail opti level:-O1
+fixed revision:244265
+buggy location
+file:llvm/trunk/lib/Analysis/ScalarEvolution.cpp;method:ScalarEvolution::isMonotonicPredicateImpl(const SCEVAddRecExpr *LHS,ICmpInst::Predicate Pred,bool &Increasing) 

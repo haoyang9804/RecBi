@@ -1,0 +1,51 @@
+The current gcc trunk miscompiles the following testcase on x86_64-linux at -O3 in both 32-bit and 64-bit modes.  
+
+This is a regression from 4.9.x.  
+
+$ gcc-trunk -v
+Using built-in specs.
+COLLECT_GCC=gcc-trunk
+COLLECT_LTO_WRAPPER=/usr/local/gcc-trunk/libexec/gcc/x86_64-unknown-linux-gnu/4.10.0/lto-wrapper
+Target: x86_64-unknown-linux-gnu
+Configured with: ../gcc-trunk/configure --prefix=/usr/local/gcc-trunk --enable-languages=c,c++ --disable-werror --enable-multilib
+Thread model: posix
+gcc version 4.10.0 20140620 (experimental) [trunk revision 211848] (GCC) 
+$ 
+$ gcc-trunk -O2 small.c; a.out
+0
+$ gcc-4.9.0 -O3 small.c; a.out
+0
+$ 
+$ gcc-trunk -O3 small.c; a.out
+1
+$ 
+
+--------------------------------
+
+int printf (const char *, ...);
+
+volatile int a, b;
+int c, d, e, f;
+
+static int
+fn1 ()
+{
+  if (b)
+    {
+      d++;
+      e = c || f;
+    }
+  return 0;
+}
+
+int
+main ()
+{
+  for (; a < 1; a++)
+    {
+      fn1 ();
+      continue;
+    }
+  printf ("%d\n", d);
+  return 0;
+}

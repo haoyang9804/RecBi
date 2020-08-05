@@ -1,0 +1,70 @@
+The current gcc trunk miscompiles the following code on x86_64-linux at -Os and above in both 32-bit and 64-bit modes. 
+
+This is a regression from 4.9.x. 
+
+
+$ gcc-trunk -v
+Using built-in specs.
+COLLECT_GCC=gcc-trunk
+COLLECT_LTO_WRAPPER=/usr/local/gcc-trunk/libexec/gcc/x86_64-unknown-linux-gnu/5.0.0/lto-wrapper
+Target: x86_64-unknown-linux-gnu
+Configured with: ../gcc-trunk/configure --prefix=/usr/local/gcc-trunk --enable-languages=c,c++ --disable-werror --enable-multilib
+Thread model: posix
+gcc version 5.0.0 20150128 (experimental) [trunk revision 220198] (GCC) 
+$ 
+$ gcc-trunk -O1 small.c; ./a.out
+$ gcc-4.9 -Os small.c; ./a.out
+$ 
+$ gcc-trunk -Os small.c
+$ ./a.out
+Aborted (core dumped)
+$ 
+
+
+
+---------------------------------
+
+
+
+struct S
+{
+  int f1;
+};
+
+static struct S a = { 1 };
+char b;
+static unsigned char *c = &b;
+int d, e, f;
+
+int
+fn1 (int p)
+{
+  return 0 ? 0 : p - 1;
+}
+
+static int
+fn2 (struct S p)
+{
+  int g = 200;
+  for (e = 4; e; e = fn1 (e))
+    {
+      for (; d; d++)
+	;
+      *c &= p.f1 & g;
+      g = --*c;
+      if (f)
+	return 0;
+    }
+  return 0;
+}
+
+int
+main ()
+{
+  fn2 (a);
+
+  if (b != 0) 
+    __builtin_abort (); 
+
+  return 0;
+}

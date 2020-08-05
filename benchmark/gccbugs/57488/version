@@ -1,0 +1,12 @@
+$ gcc-trunk -v
+gcc version 4.9.0 20130531 (experimental) [trunk revision 199531] (GCC) 
+$ gcc-trunk -O2 wrong.c 
+$ ./a.out 
+0
+$ gcc-4.8 -O3 wrong.c 
+$ ./a.out 
+0
+$ gcc-trunk -O3 wrong.c 
+$ ./a.out 
+24
+$

@@ -1,0 +1,44 @@
+The following code is miscompiled by the trunk at -O2 and -O3 on x86_64-linux-gnu in 32-bit and 64-bit modes.
+
+
+This also affects gcc-4.8 and later versions.
+
+
+$: gcc-trunk -v
+Using built-in specs.
+COLLECT_GCC=gcc-trunk
+COLLECT_LTO_WRAPPER=/usr/local/gcc-trunk/libexec/gcc/x86_64-pc-linux-gnu/6.0.0/lto-wrapper
+Target: x86_64-pc-linux-gnu
+Configured with: ../gcc-source-trunk/configure --enable-languages=c,c++,lto --prefix=/usr/local/gcc-trunk --disable-bootstrap
+Thread model: posix
+gcc version 6.0.0 20160407 (experimental) [trunk revision 234805] (GCC) 
+$: 
+$: gcc-trunk -w -m32 small.c -O3 ; ./a.out 
+Floating point exception (core dumped)
+$: gcc-trunk -w -m32 small.c -O2 ; ./a.out 
+Floating point exception (core dumped)
+$: gcc-trunk -w -m32 small.c -O1 ; ./a.out 
+$: gcc-4.8 -w small.c -O3 ; ./a.out
+Floating point exception (core dumped)
+$: gcc-4.7 -w small.c -O3 ; ./a.out
+$: 
+$: cat small.c
+int a, e, f;
+short b, c, d;
+int fn1(p1, p2) { return p2 == 0 || p1 && p2 == 1 ? p1 : p1 % p2; }
+
+static short fn2() {
+  int g, h, i = fn1(c, f);
+  f = fn1(d, 2);
+  g = fn1(b, c);
+  h = fn1(g > 0, c);
+  c = (3 >= h ^ 7) <= fn1(i, c);
+  if (fn1(e, 1))
+    return a;
+}
+
+int main() {
+  fn2();
+  return 0;
+}
+$:

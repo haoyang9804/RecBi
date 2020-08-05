@@ -1,0 +1,70 @@
+The following code is miscompiled by the current clang trunk on x86_64-linux-gnu at -O2 and -O3 in 64-bit mode (but not in 32-bit mode).
+
+This is a regression from 3.7.x. 
+
+It might be related to PR 24481, which is however also miscompiled in 32-bit mode. 
+
+
+$ clang-trunk -v  
+clang version 3.8.0 (trunk 247514)
+Target: x86_64-unknown-linux-gnu
+Thread model: posix
+InstalledDir: /usr/local/tools/bin
+Found candidate GCC installation: /usr/lib/gcc/i686-linux-gnu/4.9
+Found candidate GCC installation: /usr/lib/gcc/i686-linux-gnu/4.9.2
+Found candidate GCC installation: /usr/lib/gcc/i686-linux-gnu/5.1.0
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.4
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.4.7
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.6
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.6.4
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.7
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.7.3
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.8
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.8.2
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.9
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.9.2
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/5.1.0
+Selected GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.9
+Candidate multilib: .;@m64
+Candidate multilib: 32;@m32
+Candidate multilib: x32;@mx32
+Selected multilib: .;@m64
+$ 
+$ clang-trunk -m64 -Os small.c; ./a.out
+$ clang-trunk -m32 -O2 small.c; ./a.out
+$ clang-3.7.0 -m64 -O2 small.c; ./a.out
+$ 
+$ clang-trunk -m64 -O2 small.c
+$ ./a.out
+Aborted
+$ 
+
+
+-------------------------------------
+
+
+int a[4], b, i;  
+static int c[] = { 0, 1, 0, 0 };
+
+void
+fn1 ()
+{
+  int d[] = { 0 };
+  for (i = c[0]; i < 4; i++)
+    c[i] = 0;
+}
+
+int
+main ()
+{
+  for (; i < 4; i++)
+    a[i] = i;
+  fn1 ();
+  for (i = 0; i < 4; i++)
+    b = a[b ^ c[i]];
+
+  if (b)
+    __builtin_abort ();
+
+  return 0;
+}

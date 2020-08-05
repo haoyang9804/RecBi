@@ -1,0 +1,5 @@
+test trunk:298721
+fail opti level:-O1
+fixed trunk:298745
+buggy locations:
+file:/llvm/trunk/lib/Analysis/ValueTracking.cpp;method: llvm::computeKnownBitsForAddSub(bool Add, bool NSW,APInt &KnownZero, APInt &KnownOne,APInt &LHSKnownZero, APInt &LHSKnownOne, APInt &RHSKnownZero, APInt &RHSKnownOne)

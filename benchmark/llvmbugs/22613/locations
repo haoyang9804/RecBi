@@ -1,0 +1,6 @@
+test trunk:229360
+fail opti level:-O2;-O3
+fixed revision:229495
+buggy location
+file:/lib/Transforms/Scalar/MergedLoadStoreMotion.cpp;method:MergedLoadStoreMotion::canSinkFromBlock(BasicBlock *BB1,StoreInst *Store0)
+file:/lib/Transforms/Scalar/MergedLoadStoreMotion.cpp;method:MergedLoadStoreMotion::isStoreSinkBarrierInRange(const Instruction& Start, const Instruction& End,AliasAnalysis::Location Loc)

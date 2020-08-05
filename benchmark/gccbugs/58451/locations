@@ -1,0 +1,4 @@
+before revision:202643
+fixed revision:202644
+buggy locations:
+file:gcc/tree-loop-distribution.c; method:tree_loop_distribution (void)

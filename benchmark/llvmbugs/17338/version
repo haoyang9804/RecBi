@@ -1,0 +1,40 @@
+$ clang-trunk -v
+clang version 3.4 (trunk 191183)
+Target: x86_64-pc-linux-gnu
+Thread model: posix
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.4
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.4.6
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.4.7
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.6
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.6.3
+Selected GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.6
+$ 
+$ clang-trunk -m32 -O0 small.c; a.out
+0
+$ clang-trunk -m32 -O1 small.c; a.out
+1
+$ clang-3.3 -m32 -O0 small.c; a.out
+0
+$ clang-3.2 -m32 -O0 small.c; a.out
+0
+$ gcc-trunk -m32 -O0 small.c; a.out
+1
+$ icc -m32 -O0 small.c; a.out
+1
+$
+
+
+-----------------------------------------
+
+
+int printf (const char *, ...);
+
+int main ()
+{
+  long long t = -1; 
+  int a = (0xFFFFFFFFLL & t) > 0;
+
+  printf ("%d\n", a);
+
+  return 0;
+}

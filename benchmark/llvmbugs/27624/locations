@@ -1,0 +1,5 @@
+test trunk:268365
+fail opti level:-m32 -O3 -g
+fixed trunk:269115
+buggy locations:
+file:llvm/trunk/lib/Target/X86/X86InstrInfo.cpp;method:void X86InstrInfo::copyPhysReg(MachineBasicBlock &MBB,MachineBasicBlock::iterator MI, DebugLoc DL,unsigned DestReg, unsigned SrcReg, bool KillSrc) const

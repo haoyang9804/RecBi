@@ -1,0 +1,5 @@
+test trunk:203458
+fail opti level:-O3
+fixed trunk:203463
+buggy locations:
+file:trunk/gcc/tree-ssa-threadupdate.c;method:static void mark_threaded_blocks (bitmap threaded_blocks)

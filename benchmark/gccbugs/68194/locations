@@ -1,0 +1,5 @@
+test trunk:229639
+fail opti level:-O2;-O3
+fixed trunk:230795
+buggy locations:
+file:/trunk/gcc/ree.c;method:combine_reaching_defs (ext_cand *cand, const_rtx set_pat, ext_state *state)

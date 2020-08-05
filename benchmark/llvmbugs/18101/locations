@@ -1,0 +1,4 @@
+test trunk:195973
+fixed revision:196129
+buggy location
+file:/lib/Transforms/InstCombine/InstCombineCompares.cpp;method:InstCombiner::visitICmpInstWithInstAndIntCst(ICmpInst &ICI,Instruction *LHSI,ConstantInt *RHS)

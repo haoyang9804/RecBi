@@ -1,0 +1,84 @@
+The current clang trunk miscompiles the following code at -O1 and above on x86_64-linux-gnu in both 32-bit and 64-bit modes.
+
+This also affects 3.5.0, and is a regression from 3.4.x. 
+
+$ clang-trunk -v
+clang version 3.6.0 (trunk 220897)
+Target: x86_64-unknown-linux-gnu
+Thread model: posix
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.6
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.6.4
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.7
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.7.3
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.8
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.8.1
+Selected GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.8
+Candidate multilib: .;@m64
+Candidate multilib: 32;@m32
+Selected multilib: .;@m64
+$ 
+$ clang-trunk -O0 small.c; a.out
+1
+$ clang-3.4.2 -O1 small.c; a.out
+1
+$ 
+$ clang-trunk -O1 small.c; a.out
+0
+$ clang-3.5.0 -O1 small.c; a.out
+0
+$
+
+
+--------------------------------
+
+
+int printf (const char *, ...);
+
+int a, b, c, e, k, l;
+
+struct
+{
+  int f1;
+} d;
+
+void
+fn1 ()
+{
+  if (d.f1)
+    for (c = 0; a;)
+      for (; l;)
+	;
+}
+
+int
+fn2 ()
+{
+  for (; b < 1; b++)
+    for (; k; k++)
+      fn1 ();
+  return 0;
+}
+
+int
+fn3 ()
+{
+  int g = 0, h;
+  int i[1][1] = { {1} };
+  for (;;)
+    {
+      b = 0;
+      for (; g < 1; g++)
+	h = i[0][g] != fn2 ();
+      if (++e)
+	return 0;
+      g = h;
+    }
+}
+
+int
+main ()
+{
+  fn3 ();
+  printf ("%d\n", b);
+  return 0;
+}

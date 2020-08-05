@@ -1,0 +1,44 @@
+The current gcc trunk mis-compiles the following code on x86_64-linux-gnu at -O3 only in both 32-bit and 64-bit modes.
+
+It should be a 6 regression.
+
+
+
+$ gcc-trunk -v
+Using built-in specs.
+COLLECT_GCC=gcc-trunk
+COLLECT_LTO_WRAPPER=/home/absozero/trunk/root-gcc/libexec/gcc/x86_64-pc-linux-gnu/6.0.0/lto-wrapper
+Target: x86_64-pc-linux-gnu
+Configured with: ../gcc/configure --prefix=/home/absozero/trunk/root-gcc --enable-languages=c,c++ --disable-werror --enable-multilib
+Thread model: posix
+gcc version 6.0.0 20160307 (experimental) [trunk revision 234026] (GCC)
+
+
+$ gcc-trunk -O3 abc.c
+$ ./a.out
+Aborted (core dumped)
+$ gcc-trunk  abc.c
+$ ./a.out
+
+
+$ cat abc.c
+double u[1782225];
+int a, b, d, e;
+static void foo(int *p1) {
+  double c = 0.0;
+  for (; a < 1335; a++) {
+    b = 0;
+    for (; b < 1335; b++)
+      c = c + u[a + 1335 * a];
+    u[1336 * a] *= 2;
+  }
+  *p1 = c;
+}
+void abort();
+int main() {
+  for (; d < 1782225; d++)
+    u[d] = 2;
+  foo(&e);
+  if (e != 3564450)
+    abort();
+}

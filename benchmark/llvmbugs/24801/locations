@@ -1,0 +1,6 @@
+test trunk:247514
+fail opti level:-m64 -O2
+fixed trunk:248576
+buggy locations:
+file:/llvm/trunk/lib/Analysis/GlobalsModRef.cpp;method:GlobalsAAResult::getModRefInfo(ImmutableCallSite CS,const MemoryLocation &Loc)
+file:/llvm/trunk/lib/Analysis/GlobalsModRef.cpp;method:GlobalsAAResult::analyzeModule(Module &M, const TargetLibraryInfo &TLI,CallGraph &CG)

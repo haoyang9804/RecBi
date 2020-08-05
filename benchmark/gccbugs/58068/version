@@ -1,0 +1,26 @@
+$ gcc-trunk -v
+gcc version 4.9.0 20130801 (experimental) [trunk revision 201397] (GCC) 
+$ gcc-trunk -O2 -c reduced.c
+$ gcc-trunk -O3 -c reduced.c
+reduced.c: In function ‘foo’:
+reduced.c:4:6: internal compiler error: Segmentation fault
+ void foo ()
+      ^
+0x7d52ef crash_signal
+	../../gcc-trunk/gcc/toplev.c:334
+0x5d8ddb dominated_by_p(cdi_direction, basic_block_def const*, basic_block_def const*)
+	../../gcc-trunk/gcc/dominance.c:974
+0xb3f0c6 phi_add_costs
+	../../gcc-trunk/gcc/gimple-ssa-strength-reduction.c:2192
+0xb4125d replace_uncond_cands_and_profitable_phis
+	../../gcc-trunk/gcc/gimple-ssa-strength-reduction.c:2242
+0xb426d3 analyze_candidates_and_replace
+	../../gcc-trunk/gcc/gimple-ssa-strength-reduction.c:3371
+0xb426d3 execute_strength_reduction
+	../../gcc-trunk/gcc/gimple-ssa-strength-reduction.c:3458
+Please submit a full bug report,
+with preprocessed source if appropriate.
+Please include the complete backtrace with any bug report.
+See <http://gcc.gnu.org/bugs.html> for instructions.
+$ gcc-4.8 -O3 -c reduced.c
+$ 

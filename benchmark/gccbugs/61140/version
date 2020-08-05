@@ -1,0 +1,42 @@
+The current gcc trunk mis-compiles the following code on x86_64-linux-gnu at -O1 and above in both 32-bit and 64-bit modes. 
+
+This is a regression from 4.9.x.
+
+$ gcc-trunk -v
+Using built-in specs.
+COLLECT_GCC=gcc-trunk
+COLLECT_LTO_WRAPPER=/usr/local/gcc-trunk/libexec/gcc/x86_64-unknown-linux-gnu/4.10.0/lto-wrapper
+Target: x86_64-unknown-linux-gnu
+Configured with: ../gcc-trunk/configure --prefix=/usr/local/gcc-trunk --enable-languages=c,c++ --disable-werror --enable-multilib
+Thread model: posix
+gcc version 4.10.0 20140509 (experimental) [trunk revision 210259] (GCC) 
+$ 
+$ gcc-trunk -O0 small.c; a.out
+0
+$ gcc-4.9.0 -O1 small.c; a.out
+0
+$    
+$ gcc-trunk -O1 small.c; a.out
+1
+$ 
+
+
+---------------------------------
+
+
+int printf (const char *, ...);
+
+int a[1] = { 1 }, b = 1, c; 
+
+int
+main ()
+{
+  for (; c < 1; c++)
+    if (a[0])
+      {
+        a[0] &= 1;
+        b = 0;
+      }
+  printf ("%d\n", b);
+  return 0;
+}

@@ -1,0 +1,46 @@
+$ clang-trunk -v
+clang version 3.4 (trunk 185684)
+Target: x86_64-pc-linux-gnu
+Thread model: posix
+$ clang-trunk -O3 reduced.c
+$ a.out
+0
+$ clang-3.3 -O3 reduced.c
+$ a.out
+0
+$ clang-3.2 -O3 reduced.c
+$ a.out
+1
+$ 
+
+
+--------------------------------------------
+
+
+int printf (const char *, ...);
+
+int a = 1, b, d;
+unsigned char c;
+
+int
+foo ()
+{
+  b |= 1;
+  return a;
+}
+
+void
+bar ()
+{
+l:d = foo () && --c;
+  if (c)
+    goto l;
+}
+
+int
+main ()
+{
+  bar ();
+  printf ("%d\n", b);
+  return 0;
+}

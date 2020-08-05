@@ -1,0 +1,60 @@
+The current gcc trunk and 4.8.x mis-compile the following code on x86_64-linux at -O1 in both 32-bit and 64-bit modes. 
+
+This is a regression from 4.7.x. 
+
+
+$ gcc-trunk -v
+Using built-in specs.
+COLLECT_GCC=gcc-trunk
+COLLECT_LTO_WRAPPER=/usr/local/gcc-trunk/libexec/gcc/x86_64-unknown-linux-gnu/4.9.0/lto-wrapper
+Target: x86_64-unknown-linux-gnu
+Configured with: ../gcc-trunk/configure --prefix=/usr/local/gcc-trunk --enable-languages=c,c++ --disable-werror --enable-multilib
+Thread model: posix
+gcc version 4.9.0 20140306 (experimental) [trunk revision 208366] (GCC) 
+$ 
+$ gcc-trunk -O0 small.c; a.out
+$ gcc-trunk -O2 small.c; a.out
+$ gcc-4.7.3 -O1 small.c; a.out
+$ 
+$ gcc-trunk -O1 small.c; a.out
+Segmentation fault (core dumped)
+$ gcc-4.8.2 -O1 small.c; a.out
+Segmentation fault (core dumped)
+$ 
+
+
+-------------------------------
+
+
+int a, c, d;
+short b;
+
+void
+fn1 (int p)
+{
+}
+
+int
+fn2 ()
+{
+  return 0;
+}
+
+int
+main ()
+{
+  int e[2] = { 0, 0 };
+  for (; b < 1; b++)
+    {
+      for (; c;)
+	if (e[0])
+	  break;
+      fn1 (e[b]);
+      for (; c; c++)
+	e[0] = 0;
+      d = fn2 ();
+      if (b == (d | 2837))
+	a = e[b];
+    }
+  return 0;
+}

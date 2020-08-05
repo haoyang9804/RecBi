@@ -1,0 +1,46 @@
+Bug:17074
+The following code is miscompiled by current clang trunk and 3.3 on x86_64-linux-gnu at -O3 (in both 32-bit and 64-bit modes). 
+
+This is a regression from 3.2.
+
+
+$ clang-trunk -v
+clang version 3.4 (trunk 189735)
+$ clang-trunk -O2 reduced.c
+$ a.out
+1
+$ clang-trunk -O3 reduced.c
+$ a.out
+7
+$ clang-3.3 -O3 reduced.c
+$ a.out
+7
+$ clang-3.2 -O3 reduced.c
+$ a.out
+1
+$ 
+
+
+--------------------------------
+
+
+int printf (const char *, ...);
+
+int a, b = 7;
+char c;
+
+int main ()
+{
+ lbl: 
+  {
+    int *d = &b;
+    *d &= 1;
+    c--;
+    if (a)
+      ;
+    else if (c)
+      goto lbl;
+  }
+  printf ("%d\n", b);
+  return 0;
+}

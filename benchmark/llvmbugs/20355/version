@@ -1,0 +1,46 @@
+The current clang trunk miscompiles the following code at -O2 and -O3 on x86_64-linux-gnu in both 32-bit and 64-bit modes.
+
+This is a regression from 3.4.x. 
+
+$ clang-trunk -v
+clang version 3.5.0 (trunk 213212)
+Target: x86_64-unknown-linux-gnu
+Thread model: posix
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.6
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.6.4
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.7
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.7.3
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.8
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.8.1
+Selected GCC installation: /usr/lib/gcc/x86_64-linux-gnu/4.8
+Candidate multilib: .;@m64
+Candidate multilib: 32;@m32
+Selected multilib: .;@m64
+$ 
+$ clang-trunk -Os small.c; a.out
+-1
+$ clang-3.4 -O2 small.c; a.out
+-1
+$ 
+$ clang-trunk -O2 small.c; a.out
+0
+$ 
+
+---------------------------------
+
+int printf (const char *, ...);
+
+int a[4] = { -1, 0, 0, 0 }; 
+static int b, c;
+
+int
+main ()
+{
+  for (; b < 4; b++)
+    {
+      short t = a[b];
+      a[b] = c = t % 3;
+    }
+  printf ("%d\n", a[0]);
+  return 0;
+}

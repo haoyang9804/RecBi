@@ -1,0 +1,5 @@
+test trunk:250895
+fail opti level:-O3
+fixed trunk:275372
+buggy locations:
+file:gcc/tree-vect-data-refs.c;method:static bool vect_analyze_data_ref_dependence (struct data_dependence_relation *ddr, loop_vec_info loop_vinfo, int *max_vf)
