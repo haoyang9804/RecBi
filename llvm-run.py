@@ -29,7 +29,7 @@ for i in range(len(revlines)):
 reduced = cfg.get('llvm-rev', 'reduced').split(',')
 #print(reduced)
 
-revisions = list(set(revisions) - set(reduced))
+bugIds = list(set(bugIds) - set(reduced))
 
 mode = cfg.get('mode', 'mode')
 if mode != 'verification' and mode != 'utilization':
