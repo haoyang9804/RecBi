@@ -149,3 +149,9 @@ collect(compilersdir, infodir, bugIds, revisions, wrongs)
 # installSVN(revisions, configFile, whether_installs, bugIds)
 # print('\033[1;35m Begin gcc - collect\033[0m')
 # collect(compilersdir, infodir, bugIds, revisions, wrongs)
+
+# --------------config permission--------------
+
+maindir = cfg.get('llvm-locations', 'maindir')
+RecBidir = maindir + '../'
+os.system('chmod -R 777 ' + RecBidir)
