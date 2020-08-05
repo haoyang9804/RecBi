@@ -20,7 +20,9 @@ Then,  run `chmod -R 777 RecBi`to circumvent permission problem.
 
  In llvmbugs.txt, you can add LLVM bugs from [bugzilla](https://bugs.llvm.org/) according to the following format:
 
-`bugId,LLVM trunk revision number,the optimization level that would not trigger the bug, the optimization level that would trigger the bug,bug type,installing situation`
+```
+bugId,LLVM trunk revision number,the optimization level that would not trigger the bug, the optimization level that would trigger the bug,bug type,installing situation
+```
 
 An example of this format is shown in llvmbugs.txt of this repository:
 
