@@ -45,7 +45,7 @@ For the information of all experimental bugs, you can check *benchmark* folder.
 
 To finish bug information configuration, you should first know whether your target bugs are in our experimental bugs list by running `setup.py` and it will autonomously configure the information if the answer is yes, otherwise, our code will warn you and you should configure by yourself following the step below:
 
-+ go to RecBi/workplace/llvmbugs/info/*<u>bugId</u>* and create these two files:
++ go to `../RecBi-workplace/llvmbugs/info/bugId/* `and create these two files:
 
   1. fail.c: the file recording the given program which can trigger the bug from bugzilla 
   2. locations: the file recording 1) the LLVM trunk revision number corresponding to this bug; 2) the revision number of one LLVM trunk which fixes this bug; 3) modified files and methods(These files and methods are the reason why this bug is triggered).
@@ -67,7 +67,7 @@ RecBi has two mode shown in `RecBi/config/config.ini`: *verification* and *utili
 
 *verification* is for reproducing our experiments and the output of this mode is the metrics value according to our paper.
 
-*utilization* targets at isolating unknown bugs with our technique. The output of this mode is a file named *rankFile.txt* in `RecBi/workplace/llvmbugs/`, which records *suspiciousness value* of each involving compiler files in descending order. The bigger the suspiciousness value of the file, the more possible it causes the bug. You can change mode in `RecBi/config/config.ini`
+*utilization* targets at isolating unknown bugs with our technique. The output of this mode is a file named *rankFile.txt* in `../RecBi-workplace/llvmbugs/`, which records *suspiciousness value* of each involving compiler files in descending order. The bigger the suspiciousness value of the file, the more possible it causes the bug. You can change mode in `RecBi/config/config.ini`
 
 RecBi project will run all bugs written in `llvmbugs.txt` unless you feed some bugIds separated by comma to `reduced` in `RecBi/config/config.ini`
 
