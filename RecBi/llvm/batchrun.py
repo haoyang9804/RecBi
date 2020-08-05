@@ -16,7 +16,7 @@ def batchrun(bugIds, revisions, rights, wrongs, checkpasses, configFile):
 
     p = Pool(processes = batch_num)
     for k in range(1, loops+1):
-        for i in range(len(bugIds)):
+        for i in range(len(revisions)):
             bugId = bugIds[i]
             revision = revisions[i]
             right = rights[i]
