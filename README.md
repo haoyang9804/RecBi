@@ -1,12 +1,12 @@
 # RecBi
 
-RecBi is a new-born technique proposed in paper ***Enhanced Compiler Bug Isolation via Memoized Search*** for compilers' **fault localization**.
+RecBi is a new-born technique proposed in paper ***Enhanced Compiler Bug Isolation via Memoized Search***(written by Junjie Chen, Haoyang Ma and Lingming Zhang) for compilers' **fault localization**.
 
-In this paper, we utilize two popular C compilers, LLVM and GCC, to experiment on the performance of RecBi. All our experiments are based on GCC svn repository and LLVM svn repository. Because GCC svn repository has been converted to git, we could not provide reproducible experiments about GCC bugs. In this project, we *only* implement the llvm part of RecBi. GCC part will be implemented some day in the future.
+In this paper, we utilize two popular C compilers, LLVM and GCC, to experiment on the performance of RecBi. All our experiments are based on GCC svn repository and LLVM svn repository. Because GCC svn repository has been converted to git, we could not provide reproducible experiments about GCC bugs. In this project, we *only* implement the llvm part of RecBi. GCC part and LLVM part with git will be implemented some day in the future.
 
 ---
 
-Here follows some steps for installing, deploying and utilizing RecBi in your Linux workstation.
+Here follows some steps for installing, deploying and running RecBi in your Linux workstation.
 
 ## Installing
 
@@ -14,7 +14,9 @@ Here follows some steps for installing, deploying and utilizing RecBi in your Li
 
 In this step, do **not** place sudo before git. Permission problem will disable RecBi project.
 
-## Deploying 
+Then,  run `chmod -R 777 RecBi`to circumvent permission problem.
+
+## Deploying -1:  preparing for installing target LLVM trunk
 
  In llvmbugs.txt, you can add LLVM bugs from [bugzilla](https://bugs.llvm.org/) according to the following format:
 
@@ -32,4 +34,42 @@ An example of this format is shown in llvmbugs.txt of this repository:
 + `checkIsPass_zeroandsegmentoneline`: the given program in bugzilla will crash when the bug is triggered, otherwise, it will output nothing . [Bug 16041](https://bugs.llvm.org/show_bug.cgi?id=16041) is of this category.
 + `checkIsPass_multilineswrongcode`: the given program in bugzilla outputs multi-lines wrongly when the bug is triggered. [Bug 25831](https://bugs.llvm.org/show_bug.cgi?id=25831) is of this category.
 + `checkIsPass_zeroandonenumber`:  the given program in bugzilla will output one number when the bug is triggered, otherwise, it will output nothing. [Bug 26256](https://bugs.llvm.org/show_bug.cgi?id=26256) is of this category
+
+After installing the target llvm trunks, `install_no` will be replaced by `install_yes` and it will never be installed again unless you change this installing situation back.
+
+For the information of all experimental bugs, you can check *benchmark* folder.
+
+## Deploying -2:  configure bug information 
+
+To finish bug information configuration, you should first know whether your target bugs are in our experimental bugs list by running `setup.py` and it will autonomously configure the information if the answer is yes, otherwise, our code will warn you and you should configure by yourself following the step below:
+
++ go to RecBi/workplace/llvmbugs/info/*<u>bugId</u>* and create these two files:
+
+  1. fail.c: the file recording the given program which can trigger the bug from bugzilla 
+  2. locations: the file recording 1) the LLVM trunk revision number corresponding to this bug; 2) the revision number of one LLVM trunk which fixes this bug; 3) modified files and methods(These files and methods are the reason why this bug is triggered).
+
+  Information needed in these files could be obtained from [llvm bugzilla](https://bugs.llvm.org/) and http://llvm.org/viewvc/llvm-project/
+
+  An example(bug 15920) of *locations* is shown below
+
+  ```
+  test trunk:181189
+  fixed revision:183035
+  buggy locations
+  file:llvm/trunk/lib/Transforms/Vectorize/LoopVectorize.cpp;method:LoopVectorizationLegality::canVectorizeInstrs()
+  ```
+
+## Running
+
+RecBi has two mode shown in `RecBi/config/config.ini`: *verification* and *utilization*.
+
+*verification* is for reproducing our experiments and the output of this mode is the metrics value according to our paper.
+
+*utilization* targets at isolating unknown bugs with our technique. The output of this mode is a file named *rankFile.txt* in `RecBi/workplace/llvmbugs/`, which records *suspiciousness value* of each involving compiler files in descending order. The bigger the suspiciousness value of the file, the more possible it causes the bug. You can change mode in `RecBi/config/config.ini`
+
+RecBi project will run all bugs written in `llvmbugs.txt` unless you feed some bugIds separated by comma to `reduced` in `RecBi/config/config.ini`
+
+Eventually, `python llvm-run.py` and get the output. The process of RecBi may take a while.
+
+
 
