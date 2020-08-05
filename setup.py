@@ -153,5 +153,5 @@ collect(compilersdir, infodir, bugIds, revisions, wrongs)
 # --------------config permission--------------
 
 maindir = cfg.get('llvm-locations', 'maindir')
-RecBidir = maindir + '../'
+RecBidir = maindir + '/../'
 os.system('chmod -R 777 ' + RecBidir)
