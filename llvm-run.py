@@ -35,8 +35,8 @@ mode = cfg.get('mode', 'mode')
 if mode != 'verification' and mode != 'utilization':
     raise Exception('Unknown mode... Please check config.ini and correct it.')
 
-# print('\033[1;35m Begin batchrun\033[0m')
-# batchrun(bugIds, revisions, rights, wrongs, checkpasses, configFile)
+print('\033[1;35m Begin batchrun\033[0m')
+batchrun(bugIds, revisions, rights, wrongs, checkpasses, configFile)
 print('\033[1;35m Begin delete\033[0m')
 delete(configFile)
 if mode == 'verification':
