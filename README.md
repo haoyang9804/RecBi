@@ -73,5 +73,7 @@ RecBi project will run all bugs written in `llvmbugs.txt` unless you feed some b
 
 Eventually, `python llvm-run.py` and get the output. The process of RecBi may take a while.
 
+---
 
+Welcome more people to enrich our benchmark for further-step research.
 
