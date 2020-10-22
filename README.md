@@ -79,9 +79,9 @@ Welcome more people to enrich our benchmark for further-step research.
 
 Authors information:
 
-|      Name      |       Email Adderess        |  Github Id  |
-| :------------: | :-------------------------: | :---------: |
-|  Junjie Chen   |    junjiechen@tju.edu.cn    | JunjieChen  |
-|   Haoyang Ma   |   haoyang_9804@tju.edu.cn   | haoyang9804 |
-| Lingming Zhang | lingming.zhang@utdallas.edu |  lingming   |
+|      Name      |     Email Adderess      |  Github Id  |
+| :------------: | :---------------------: | :---------: |
+|  Junjie Chen   |  junjiechen@tju.edu.cn  | JunjieChen  |
+|   Haoyang Ma   | haoyang_9804@tju.edu.cn | haoyang9804 |
+| Lingming Zhang |  lingming@illinois.edu  |  lingming   |
 
