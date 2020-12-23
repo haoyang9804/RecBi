@@ -1,0 +1,5 @@
+test trunk:261722
+fail opti level:-O2
+fixed trunk:262624
+buggy locations:
+file:llvm/trunk/lib/Transforms/Utils/LoopUtils.cpp;method:RecurrenceDescriptor::isFirstOrderRecurrence(PHINode *Phi, Loop *TheLoop,DominatorTree *DT)
